@@ -497,11 +497,11 @@ saveRDS(adult_income_validation, "rda/adult_income_validation_final.rda")
 index <- sample(nrow(training_set_final), SAMPLE.SIZE)
 train_sample <- training_set_final[index, ]
 
-train_x <- training_set_final %>% select(-c("over50K")) %>% as.matrix()
-test_x <- test_set_final %>% select(-c("over50K")) %>% as.matrix()
+#train_x <- training_set_final %>% select(-c("over50K")) %>% as.matrix()
+#test_x <- test_set_final %>% select(-c("over50K")) %>% as.matrix()
 
-train_y <- training_set_final[, "over50K"]
-test_y <- test_set_final[, "over50K"] 
+#train_y <- training_set_final[, "over50K"]
+#test_y <- test_set_final[, "over50K"] 
 
 
 
