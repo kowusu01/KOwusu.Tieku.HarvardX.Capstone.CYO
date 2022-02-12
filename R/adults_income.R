@@ -723,7 +723,7 @@ perf_stats <- performance_stats_1 %>%
     rbind(performance_stats_3)
 
 
-perf_stats
+
 
 print(paste("done training rf model - ", Sys.time()) )
 
@@ -732,6 +732,8 @@ colnames(perf_stats) <- c("accuracy" ,"kappa", "sensitivity", "specificity")
 perf_stats$k <- c(knn_model_1$bestTune$k, NA, NA,NA)
 perf_stats$mtry <-c(NA, NA, model_2$bestTune$mtry, model_2$bestTune$mtry)
 perf_stats$nodesize <- c(NA, NA, NA, model_3_best_nodesize)
+
+perf_stats
 
 saveRDS(perf_stats, "rda/rf_test_performance_stats.rda")
 
