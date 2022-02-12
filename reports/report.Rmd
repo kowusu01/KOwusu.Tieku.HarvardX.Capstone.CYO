@@ -675,12 +675,12 @@ capital_gain_loss_proportions <- capital_gain_loss_proportions %>%
 capital_gain_loss_proportions %>% 
   ggplot(aes(x=Gain_Loss, y=Proportion, fill=Gain_Loss)) +  
   scale_fill_brewer(palette = "Set2")   +
-  geom_col(width = 0.5) +  ggtitle("Proportion of Income >50K by capital gain/loss")  +  
+  geom_col(width = 0.5) +  ggtitle("Proportion of Income >50K by capital gain/loss") + ylab("Proportion >50K") +
   xlab("gain or loss") + gray_chart_theme + theme(legend.position = "none") 
 
 
 adult_income %>% group_by(capital_gain_level) %>% 
-  summarise(total=n(), over50K=sum(Income==">50K"), proportion=over50K/total) %>% 
+  summarise(total=n(), over50K=sum(Income==">50K"), proportion=round(over50K/total,2)) %>% 
    kbl(booktabs=T, caption="Proportion of Income over50K by Capital Gain") %>% 
     kable_styling(latex_options = c("striped", "hold_position")) %>% 
     column_spec(0, bold=T) %>% 
@@ -688,7 +688,7 @@ adult_income %>% group_by(capital_gain_level) %>%
     row_spec(3:4, color = "blue") 
 
 adult_income %>% group_by(capital_loss_level) %>% 
-  summarise(total=n(), over50K=sum(Income==">50K"), proportion=over50K/total)  %>% 
+  summarise(total=n(), over50K=sum(Income==">50K"), proportion=round(over50K/total,2))  %>% 
    kbl(booktabs=T, caption="Proportion of Income over50K by Capital Loss") %>% 
     kable_styling(latex_options = c("striped", "hold_position")) %>% 
     column_spec(0, bold=T) %>% 
@@ -834,7 +834,7 @@ training_set_final %>%
 
 \newpage
 
-### Training, Optimization, & Final Model and Results
+### Training, Optimization, Final Model, and Results
 
 #### Datasets
 The following table lists the datasets as used in the final part of the project.    
@@ -853,7 +853,7 @@ data.frame(data=c("training_set_final", "test_set_final", "validation"),
 
 
 #### Cross Validation and Sampling. 
-To avoid overfitting, a 5-fold cross validation was used while training the models using a sample size of 5000 from the training set.
+To reduce the chances of overfitting, a 5-fold cross validation was used while training the models using a sample size of 5000 from the training set.
 
 The following parameters are used to define a common training control for all models:   
 ``` {r common_train_control,   eval=FALSE, echo=TRUE }
@@ -900,7 +900,7 @@ knn_model_2 <- train(
 )
 ```
 
-The folliwng shows the two models, the cross validation resutls, and confusion matrix.
+The following shows the two models, the cross validation results, and confusion matrix.
 
 ```{r knn_model_cv_results_1}
 
@@ -1006,7 +1006,7 @@ Overall, without any tuning, the model performance is pretty good; Sensitivity a
 
 
 
-#### RandomForest Model 2. Attempt to tune mtry paramaters. 
+#### RandomForest Model 2. Attempt to tune mtry. 
 With this model, the same sample (5K observations from the training set) with the same cross validation were used in an attempt to tune mtry. From model 1, it was noticed that the best mtry was ```r rf_model_1_results$mtry[which.max(rf_model_1_results$ROC)] ``` . The idea was to expand the mtry around the mtry obtained from model 1 and  see if there is a better mtry. With this approach, the best cross validation ROC for model 2 is achieved with mtry = ```r rf_model_2_results$mtry[which.max(rf_model_2_results$ROC)]```.  
 
 
