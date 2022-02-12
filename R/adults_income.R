@@ -45,12 +45,17 @@ library(lattice)
 library(wrapr)      # for functions such as qc()
 
 
-# datasource
+# url to the original source
 TRAINING_DATA.URL   <- "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
 VALIDATION_DATA.URL <- "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test"
 
 # for informational purposes
 INFO.URL            <- "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.names"
+
+
+# url to my github location, just in case
+TRAINING_DATA.GITHUB.URL <- "https://raw.githubusercontent.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/tree/main/data/adult.data"
+VALIDATION_DATA.GITHUB.URL <- "https://raw.githubusercontent.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/tree/main/data/adult.test"
 
 
 TRAIN_DATA_PATH <- "data/adult.data"
@@ -66,13 +71,23 @@ TUNE.LENGTH <- 10
 num_cores <- makeCluster(detectCores() - 1)
 registerDoParallel(cores = num_cores)
 
+# attempt download files from source
+#if(!file.exists(TRAIN_DATA_PATH))
+#  download.file(TRAINING_DATA.URL,   TRAIN_DATA_PATH,  method="curl", mode = "w")
 
-# download files
+#if(!file.exists(VALIDATION_DATA_PATH))
+#  download.file(VALIDATION_DATA.URL, VALIDATION_DATA_PATH,  method="curl", mode = "w")
+
+
+#################################################################################
+# attempt download files from my github repo
+################################################################################
 if(!file.exists(TRAIN_DATA_PATH))
-  download.file(TRAINING_DATA.URL,   TRAIN_DATA_PATH,  method="curl", mode = "w")
+  download.file(TRAINING_DATA.GITHUB.URL,   TRAIN_DATA_PATH,  method="curl", mode = "w")
 
 if(!file.exists(VALIDATION_DATA_PATH))
-  download.file(VALIDATION_DATA.URL, VALIDATION_DATA_PATH,  method="curl", mode = "w")
+  download.file(VALIDATION_DATA.GITHUB.URL, VALIDATION_DATA_PATH,  method="curl", mode = "w")
+################################################################################
 
 
 ################################################################################

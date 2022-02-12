@@ -1,6 +1,6 @@
 ---
 title: "HarvardX PH125.9x - Capstone Project - CYO"
-subtitle: "Predicting Income Using randomForest"
+subtitle: "Predicting Income Using Knn and randomForest"
 author: "Kwaku Owusu-Tieku"
 date: "2/9/2022"
 output: pdf_document
@@ -178,7 +178,7 @@ Even different geographic regions or cities may offer different levels of income
 
 In this project, I will I apply kNN and randomForest to a dataset containing various attributes (predictors) and individual's income level (above or below $50K), and predict the individual's income level. 
 
-The kNN and randomForest algorithms were chosen because they are very simple to train, and they are able handle a wide range data including a mix of categorical and numeric variables and offers good performance. 
+The kNN and randomForest algorithms were chosen because they are very easy to train, and they are able handle a wide range data including a mix of categorical and numeric variables and offers good performance. 
 
 
 \newpage
