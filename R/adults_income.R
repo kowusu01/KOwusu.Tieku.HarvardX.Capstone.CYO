@@ -28,6 +28,9 @@ if (!require(reshape2)) install.packages("reshape2", repos = "http://cran.us.r-p
 if (!require(parallel)) install.packages("parallel", repos = "http://cran.us.r-project.org")
 if (!require(doParallel)) install.packages("doParallel", repos = "http://cran.us.r-project.org")
 if (!require(lattice)) install.packages("lattice", repos = "http://cran.us.r-project.org")
+# for ROC curves  
+if(!require(ROCR)) install.packages("ROCR", repos = "http://cran.us.r-project.org")
+
 
 library(matrixStats)
 library(dplyr)
@@ -43,14 +46,20 @@ library(parallel)
 library(doParallel)
 library(lattice)
 library(wrapr)      # for functions such as qc()
+library(ROCR)
 
 
-# datasource
+# url to the original source
 TRAINING_DATA.URL   <- "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
 VALIDATION_DATA.URL <- "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test"
 
 # for informational purposes
 INFO.URL            <- "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.names"
+
+
+# url to my github location, just in case
+TRAINING_DATA.GITHUB.URL <- "https://raw.githubusercontent.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/tree/main/data/adult.data"
+VALIDATION_DATA.GITHUB.URL <- "https://raw.githubusercontent.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/tree/main/data/adult.test"
 
 
 TRAIN_DATA_PATH <- "data/adult.data"
@@ -66,13 +75,23 @@ TUNE.LENGTH <- 10
 num_cores <- makeCluster(detectCores() - 1)
 registerDoParallel(cores = num_cores)
 
-
-# download files
+# attempt download files from source
 if(!file.exists(TRAIN_DATA_PATH))
   download.file(TRAINING_DATA.URL,   TRAIN_DATA_PATH,  method="curl", mode = "w")
 
 if(!file.exists(VALIDATION_DATA_PATH))
   download.file(VALIDATION_DATA.URL, VALIDATION_DATA_PATH,  method="curl", mode = "w")
+
+
+#################################################################################
+# attempt download files from my github repo
+################################################################################
+#if(!file.exists(TRAIN_DATA_PATH))
+#  download.file(TRAINING_DATA.GITHUB.URL,   TRAIN_DATA_PATH,  method="curl", mode = "w")
+
+#if(!file.exists(VALIDATION_DATA_PATH))
+#  download.file(VALIDATION_DATA.GITHUB.URL, VALIDATION_DATA_PATH,  method="curl", mode = "w")
+################################################################################
 
 
 ################################################################################
@@ -723,17 +742,11 @@ perf_stats <- performance_stats_1 %>%
     rbind(performance_stats_3)
 
 
-
+perf_stats
 
 print(paste("done training rf model - ", Sys.time()) )
 
 row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)", "rf_model.2 (find best mtry)", "rf_model.3 (find best nodesize)")
-colnames(perf_stats) <- c("accuracy" ,"kappa", "sensitivity", "specificity")
-perf_stats$k <- c(knn_model_1$bestTune$k, NA, NA,NA)
-perf_stats$mtry <-c(NA, NA, model_2$bestTune$mtry, model_2$bestTune$mtry)
-perf_stats$nodesize <- c(NA, NA, NA, model_3_best_nodesize)
-
-perf_stats
 
 saveRDS(perf_stats, "rda/rf_test_performance_stats.rda")
 
@@ -767,6 +780,3 @@ print(paste("DONE!! - ", Sys.time()) )
 #####################################################################
 # HOORAY! THE END
 #####################################################################
-
-
-

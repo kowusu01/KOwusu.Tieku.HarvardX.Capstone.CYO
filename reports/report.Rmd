@@ -31,6 +31,11 @@ output: pdf_document
   
   # for arranging objects like charts horizontally and vertically using arrangeGrob(), etc
   if(!require(gridExtra)) install.packages("gridExtra", repos = "http://cran.us.r-project.org")
+
+  # for ROC curves  
+  if(!require(ROCR)) install.packages("ROCR", repos = "http://cran.us.r-project.org")
+
+
   
   library(dplyr)
   library(ggplot2)
@@ -40,7 +45,7 @@ output: pdf_document
   library(tinytex)
   library(kableExtra)
   library(gridExtra)
-  
+  library(ROCR)
   
   #######################################################################
   ## functions
@@ -95,6 +100,11 @@ output: pdf_document
   confusionMatrix_final    <- readRDS(file.path( rda_path, "confusionMatrix_final.rda"))
   feature_importance <- readRDS(file.path( rda_path, "important_features.rda"))
   
+  roc_predictions_1 <- readRDS(file.path( rda_path, "roc_predictions_1.rda"))
+  roc_predictions_2 <- readRDS(file.path( rda_path, "roc_predictions_2.rda"))
+
+  roc_performance_1 <- readRDS(file.path( rda_path, "roc_performance_1.rda"))
+  roc_performance_2 <- readRDS(file.path( rda_path, "roc_performance_2.rda"))
   
   ########################################################
   # knn results
@@ -178,7 +188,7 @@ Even different geographic regions or cities may offer different levels of income
 
 In this project, I will I apply kNN and randomForest to a dataset containing various attributes (predictors) and individual's income level (above or below $50K), and predict the individual's income level. 
 
-The kNN and randomForest algorithms were chosen because they are very easy to train, and they are able handle a wide range data including a mix of categorical and numeric variables and offers good performance. 
+The kNN and randomForest algorithms were chosen because they are very easy to train, and they are able handle a wide range data including a mix of categorical and numeric variables and offer good performance. 
 
 
 \newpage
@@ -406,9 +416,9 @@ Variables _capital_gain_ and _capital_loss_ both have a mean and median of zero 
 
 Variable _education_num_ is the more normally distributed than the rest, followed by _age_, and _hours_per_week_, even though _age_ is still right-skewed. 
 
-The _hours_per_week_ variable is a little bit of bell curve with a mean and median being same ```r round(mean(adult_income$hours_per_week))```, meaning the majority of people are working fourty hours a week. However, one surprising thing is the presence of near 100hrs per week for some individuals. Although not a significant proportion, its important to note that ```r adult_income %>% filter(hours_per_week>=70) %>% nrow() ```  individuals in this dataset work over seventy hours or more per work.
+The _hours_per_week_ variable is a little bit of bell curve with a mean and median being same ```r round(mean(adult_income$hours_per_week))```, meaning the majority of people are working fourty hours a week. However, one surprising thing is the presence of near 100hrs per week for some individuals. Although not a significant proportion, it is important to note that ```r adult_income %>% filter(hours_per_week>=70) %>% nrow() ```  individuals in this dataset work over seventy hours or more per work.
 
-The _age_ summary statistics and the histogram show a right-skewed distribution with a mean of 39 and median of 37 years. This indicates, as expected, that bulk of the workforce is concentrated in the younger age groups.  people^[https://www.bls.gov/careeroutlook/2017/article/older-workers.htm].  
+The _age_ summary statistics and the histogram show a right-skewed distribution with a mean of 39 and median of 37 years. This indicates, as expected, that the bulk of the workforce is concentrated in the younger age groups^[https://www.bls.gov/careeroutlook/2017/article/older-workers.htm].  
 
 ```{r 13_age_distribution}
 
@@ -434,7 +444,7 @@ It can be seen from the summary statistics that while the minimim age in the wor
 
 \newpage
 
-#### Categorical Variable Distributions   
+#### Categorical Variable Distributions  
   
 __Race and gender__. With race, the largest proportion is White ```r (table(adult_income$race) %>% prop.table() )["White"] %>% fnSafePercent(accuracy = 1)```. The rest is divided among Black (```r (table(adult_income$race) %>% prop.table() )["Black"] %>% fnSafePercent(accuracy = 1)```), and the others.  
 
@@ -448,7 +458,7 @@ __Education__. Education is one of the categorical variables with enourmous amou
 
 In addition to _education_ categorical variable, the _education_num_ has the number of years of education for each individual.  In essence these two vaiables may be reporting the same information.
    
-When the categories are collapsed into more broader categories with few levels, it becomes even more clear that the vast majority of the individuals have no college degree. This may explain why the majority of the individuals earn less than 50K.  
+When the categories are collapsed into more broader categories with fewer levels, it becomes even more clear that the vast majority of the individuals have no college degree. This may explain why the majority of the individuals earn less than 50K.  
 
 
 ``` {r education_distribution_original, fig.height=3.3, caption="Education Distribution (Original Categories)" }
@@ -478,7 +488,7 @@ The _workclass_ variable is more like job sectors, has eight categories and one 
   
       
 __Occupation__. 
-Another import variable is _occupation_, a categorical variable with 15 levels and one missing (?) category.  
+Another import variable is _occupation_, a categorical variable with 15 levels,  one missing (?) category.  
 
 ```{r occupation_original }
 
@@ -502,7 +512,7 @@ adult_income %>%
 ```
 \newpage
 
-For visualization purposes, I merged the _occupation_ categories into new categories based on the the occupation classifications defined by US Bureau of Labor Statistics (BLS). These categories (classifications) are known as the Standard Occupation Classifications (SOC)
+For visualization purposes, I merged the _occupation_ categories into new categories based on the occupation classifications defined by US Bureau of Labor Statistics (BLS). These categories (classifications) are known as the Standard Occupation Classifications (SOC)
 ^[For more information on SOC occupational classifications, see https://www.bls.gov/soc/]. 
 
 The SOC defines many categories but the following are the ones used:
@@ -611,9 +621,9 @@ It is important to note that the graph above can be generated using _education_n
 ```
 \newpage
 
-__Income by gender __. Gender and income inequality has always been a topic of concern in almost every society.  This section shows a simple analysis of how income differs by gender in the given dataset. The table and plots below shows that in general, a higher proportion of males earning higher income that females. Education wise, the females are equally educated as the men, but the average age for females is a bit lower than that of the males, meaning there are more younger women in the workforce (probably earning lower salaries), but am not sure if that explains the difference. 
+__Income by gender __. Gender and income inequality has always been a topic of concern in almost every society.  This section shows a simple analysis of how income differs by gender in the dataset. The table below shows that in general, a higher proportion of males earn higher income than females.
 
-```{r income_by_gender}
+```{r income_by_gender_table}
   
   t <- adult_income %>% group_by(sex) %>% 
     summarise(total=n(), 
@@ -621,14 +631,23 @@ __Income by gender __. Gender and income inequality has always been a topic of c
               proportion = round(over50K/total,2 ),
               avg_age = round(mean(age),0), 
               avg_education_yrs = round(mean(education_num),0))
-t1 <- t %>% select(sex, total, over50K, proportion)
-colnames(t1) <- c("Gender", "Total", "Total over50K", "Proportion >50K")
+  t1 <- t %>% select(sex, total, over50K, proportion)
+  colnames(t1) <- c("Gender", "Total", "Total over50K", "Proportion >50K")
 
-t1 %>% 
+  
+ t1 %>% 
   kbl(booktabs=T, caption="Income and Gender") %>% 
       kable_styling(latex_options = c("striped", "hold_position")) %>% 
       kable_styling(full_width = T)  %>% 
       column_spec(0, bold=T)
+
+  
+```
+  
+    
+Education wise, the females are equally educated as the men, but the average age for females is a bit lower than that of the males, meaning there are more younger women in the workforce (probably earning lower salaries), but am not sure if that explains the difference. 
+
+```{r gender_age_income}
 
   t2 <- t %>% select(sex, avg_age, avg_education_yrs)
   colnames(t2) <- c("Gender", "Avg Age", "Avg Education Yrs")
@@ -655,7 +674,7 @@ __Income and capital gain/capital loss__. Another set of variables I wanted to e
 
 
 
-The following chart and tables explore if Income is affected by capital gain or loss.
+The following chart and tables explore if capital gain or loss can provide an indication of one's income level.
 
 ```{r fig.height=3}
 
@@ -747,7 +766,7 @@ __6. scale all numeric variables__. After all the transformation, the variables 
 
 \newpage
 
-These tasks ofr peforming the transformation are placed in R functions and can be found in the _data_engineering.R_ file. Part of it are shown below.
+The tasks for perorming the transformation are all placed in R functions so they can be reused.
 
 
 ```{r, preprocessing_functions, eval=F, echo=T }
@@ -858,22 +877,26 @@ To reduce the chances of overfitting, a 5-fold cross validation was used while t
 The following parameters are used to define a common training control for all models:   
 ``` {r common_train_control,   eval=FALSE, echo=TRUE }
 cv_control <- trainControl(method = "cv",
-                           number = 10, 
+                           number = 5, 
                            summaryFunction=twoClassSummary,
                            classProbs=TRUE, 
                            savePredictions = T)
 
 ```
+
 The _summaryFunction_ is set to _twoClassSummary_, _classProbs=TRUE_, both are required when using ROC as the performance metric. 
 _savePrediction_ is set to _TRUE_ so caret will retain the predictions from the final model, which  can be used later.
-The _metric_ is set to __ROC__, tells the caret to select best model using ROC rather than Accuracy.  
+
+
+#### Performance metric.  
+In this projet, I use _AUC_ (Area Under the Curve) as the metric for selecting best models during cross validation. In the confusion matrix,  use Kappa instead of accuracy when selecting best model. Kappa is often preferred to accuracy when dealing with imbalanced dataset which is the case in this project. In th caret training function, the _metric_ will be set to __ROC__, to indicate to caret to select best model using _AUC_ rather than Accuracy.  
 
 \newpage
 
 ### KNN Models
-First, I trained a two KNN models and picked the best performinng one. My approach was, first, I trained a model using caret defaults (knn_model_1). In knn, there is only one parameter to tune k. In the dafault  model, I used a tuneLenght of 10 to allow caret to select 10 values for k. This model provided a _best_ value for k from the cross validation.  I fit that model to the entire training set, use the fit to make predictions on the test.
+First, I trained two KNN models and picked the best performinng one. My approach was, first, I trained a model using caret defaults (knn_model_1). In knn, there is only one parameter to tune k. In the dafault  model, I used a tuneLenght of 10 to allow caret to select 10 values for k. This model provided a _best_ value for k from the cross validation.  I fit that model to the entire training set, use the fit to make predictions on the test.
 
-I take the _best k_ that value  from the first model, and expanded around it to provide more tuning values for k and used it to train another model (knn_model_2). I fitted the new model on the entire training set, and made another predictions on test. I then compare the two models. 
+I take the _best k_ from the first model, and expanded around it to provide more tuning values for k and used it to train another model (knn_model_2). I fitted the new model on the entire training set, and made another predictions on test. I then compare the two models. 
 
 ```{r knn_model_1_train, eval=F, echo=T}
 knn_model_1 <- train(
@@ -952,15 +975,15 @@ From the cross validation results in first model, it appear k is still increasin
   
 ```
 
-We can see from the details above that in model 1 (left table), accuracy, kappa, and sensitivity are higher than those in model 2 (right table). Therefore, I selected knn_model_1 as best model from knn. Next I will train other models using randomForest and select the best model again from there. I will then  pick from a two final models, the best performing and use as my final model for validation.
+We can see from the details above that in model 1 (left table), accuracy, kappa, and sensitivity are higher than those in model 2 (right table). Therefore, I selected knn_model_1 as best model from knn. Next I will train other models using randomForest and select the best model again from there. I will then  pick from two final models, the best performing model and use as my final model for validation.
   
 \newpage  
   
 ### RandomForst Models 
 #### RandomForest Model 1. Using randomForest defaults for training. 
-In this section, I used the same approach as used when training the knn models. I used a sample (5K observations) to train the models. There are two main parameters of interest to me; _mtry_ (numer of random features to use in each split), and nodesize (minimum number of nodes in the terminal nodes or leaves). Number of tree (ntree) can also be set for randomForest, but in this case, I let caret choose values for ntree.  
+In this section, I used the same approach as used when training the knn models. I used a sample (5K observations) to train the models. There are two main parameters of interest to me; _mtry_ (number of random features to use in each split), and nodesize (minimum number of nodes in the terminal nodes or leaves). Number of tree (ntree) can also be set for randomForest, but in this case, I let caret choose values for ntree.  
 
-First, I train a model using caret default ( _rf_model_1_ ), then take the best mtry from that model, expand on it and use it to train another model ( _rf_model_2_ ) to see if there is a _nodesize_ that yields a better performance. If model 2 yields an improvement, I use that k value, and the nodesize found, and train another model (rf_model_3) and see if there is an improvement. At the end, I select the best model among these three, and compare that to the one from knn. 
+First, I train a model using caret defaults ( _rf_model_1_ ), then take the best mtry from that model, expand on it and use it to train another model ( _rf_model_2_ ) to see if there is an _mtry_ that yields a better performance. I then use the new mtry value and train another model (rf_model_3),  this time searching for an optimized _nodesize_. At the end, I select the best model among these three, and compare that to the one from knn. 
 
 ``` {r rf_model_1, eval=F, echo=T}
 
@@ -980,9 +1003,9 @@ fnTrainRandomforestWithDefaults <- function(train_sample){
 
 ```
 
-Again I set _tuneLength_ to 10 to allow caret to generate 10 random values for the tuning parameter (in this case mtry).  
+Again I set _tuneLength_ to 10 to allow caret to generate 10 random values for mtry (by default caret will pick three values for mtry).  
 
-The training model was then used to fit a model on the entire training set, and used it to make predictions on the test set. The results below show the results from the cross validation.  The cross validation results show that the ROC ranges from 88% to 89%. The best cross validation model achieves the 89.5% ROC at 59% sensitivity and 93% specificity.
+The training model was then used to fit a model on the entire training set, and used it to make predictions on the test set. The results below show the results from the cross validation.  The cross validation results show that the ROC ranges from 88% to 90%. The best cross validation model achieves ROC of 90% with mtry of 21, at 61% sensitivity, and 93% specificity.
 
 ```{r rf_model_1_cross_validation}
 
@@ -1000,7 +1023,7 @@ The training model was then used to fit a model on the entire training set, and 
 ```    
 
 
-From the confusion matrix we see that the accuracy is ```r  round(rf_model_1_cm$overall['Accuracy'],3) ```. Sensitivity (the True Positive prediction rate) is ```r round(tidy(rf_model_1_cm) %>% filter(term=="sensitivity") %>% pull(estimate), 3)```, much lower than the Specificity (True Negative prediction rate) of ```r round(tidy(rf_model_1_cm) %>% filter(term=="specificity") %>% pull(estimate), 3)```. This is due to the low prevalence of the positive class, as already mentioned. Our main performance statistic, Kappa is ```r round(tidy(rf_model_1_cm) %>% filter(term=="kappa") %>% pull(estimate), 3)```.
+From the confusion matrix, we see that the accuracy is ```r  round(rf_model_1_cm$overall['Accuracy'],3) ```. Sensitivity (the True Positive prediction rate) is ```r round(tidy(rf_model_1_cm) %>% filter(term=="sensitivity") %>% pull(estimate), 3)```, much lower than the Specificity (True Negative prediction rate) of ```r round(tidy(rf_model_1_cm) %>% filter(term=="specificity") %>% pull(estimate), 3)```. This is due to the low prevalence of the positive class, as already mentioned. Our main performance statistic, Kappa is ```r round(tidy(rf_model_1_cm) %>% filter(term=="kappa") %>% pull(estimate), 3)```.
 
 Overall, without any tuning, the model performance is pretty good; Sensitivity above ```r tidy(rf_model_1_cm) %>% filter(term=="sensitivity") %>% pull(estimate) %>% fnSafePercent(accuracy=1)``` indicates that the model is doing fairly good in predicting the positive class.  The Kappa value also indicates that the model is doing fairly good in distinguising between the positive and negative classes. The next models attempt to improve upon the first model by tuning some of the parameters.
 
@@ -1008,6 +1031,8 @@ Overall, without any tuning, the model performance is pretty good; Sensitivity a
 
 #### RandomForest Model 2. Attempt to tune mtry. 
 With this model, the same sample (5K observations from the training set) with the same cross validation were used in an attempt to tune mtry. From model 1, it was noticed that the best mtry was ```r rf_model_1_results$mtry[which.max(rf_model_1_results$ROC)] ``` . The idea was to expand the mtry around the mtry obtained from model 1 and  see if there is a better mtry. With this approach, the best cross validation ROC for model 2 is achieved with mtry = ```r rf_model_2_results$mtry[which.max(rf_model_2_results$ROC)]```.  
+#### RandomForest Model 2. Attempt to tune mtry paramaters. 
+With this model, the same sample (5K observations from the training set) with the same cross validation were used in an attempt to tune mtry. From model 1, i the best mtry was ```r rf_model_1_results$mtry[which.max(rf_model_1_results$ROC)] ``` . The idea was to expand the around the mtry obtained from model 1 and  see if there is a better mtry. With this approach, the best cross validation ROC for model 2 is achieved with mtry = ```r rf_model_2_results$mtry[which.max(rf_model_2_results$ROC)]```.  
 
 
 
@@ -1038,10 +1063,27 @@ fnTrainRandomforest_Tune_mtry <- function(train_sample){
 ```
 
 
-The following shows the cross validation results for model 2. Even though the best mtry from this model is different from the default one selected by caret in model 1, the model did not result in a significant improvement over model 1; ROC is still at 89% with both sensitivity and specificity remaining the same.
+The following shows the cross validation results for model 2. Even though the best mtry from model 2 is different from the default one selected by caret in model 1, model 2 did not result in any improvement over model 1; ROC is still at 90% with both sensitivity and specificity remaining the same. In fact, the ROC curves for both models look identical.
+
+```{r, roc_curves_models_1_and_2}
+
+  auc_1_value <- (performance(roc_predictions_1, "auc"))@y.values %>% as.numeric
+  auc_2_value <- (performance(roc_predictions_2, "auc"))@y.values %>% as.numeric
+  
+  par(mfrow=c(1,2)) 
+  plot( roc_performance_1, colorize=T, lwd=2, main=paste0("randomForest model 1 \n AUC=", round(auc_1_value,3)))
+  abline(a=0, b=1, lwd=2)
+  
+  plot( roc_performance_2, colorize=T, lwd=2, main=paste0("randomForest model 2 \n AUC=", round(auc_2_value,3)))
+  abline(a=0, b=1, lwd=2)
+
+```
+
+
 
 #### RandomForest Model 3. Attempt to tune randomForest nodesize parameter. 
-The final two models involves attempting to tune randomforest nodesize parameter. In model 1, mtry was held constant best mtry from model 1. Different models were fitted across different values of nodesize and the one with best ROC was selected. The plot below shows the values of Kappa across different values for nodesize in model 3.
+The final two models involved attempting to tune randomforest mtry parameter. In model 1, caret selected the mtry; model 2 tuned the mtry from model 1.  
+In model 3, mtry from model 2 is used and held it constant to find the best nodesize.  Different models were fitted across different values of nodesize and the one with best Kappa was selected. The plot below shows the values of Kappa across different values for nodesize in model 3.
 
 ``` {r rf_model_3, fig.height=4}
 
@@ -1054,14 +1096,14 @@ The final two models involves attempting to tune randomforest nodesize parameter
  
  
 ```
-Models 3 suggests the number ```r model_3_best_nodesize``` as an ideal value for node size. The following table shows the performance statistics for all three models fitted on the test set, including the best model from knn.
+Models 3 suggests the number ```r model_3_best_nodesize``` as an ideal value for node size. The following table shows the performance statistics for all three models fitted on the test set, including the best model from knn. 
  
  ```{r rf_tab_final_perf_stats, caption="randomForst model performance on Test Set"}
  
  rf_test_performance_stats %>% 
     kbl(booktabs=T, caption="Model performance on Test Set") %>%
       kable_styling(latex_options = c("striped", "hold_position", "scale_down"))%>% 
-      row_spec(which.max(rf_test_performance_stats$test.kappa), bold = T, color = "red") 
+      row_spec(4, bold = T, color = "red") 
 
  ```
 
@@ -1069,7 +1111,7 @@ Models 3 suggests the number ```r model_3_best_nodesize``` as an ideal value for
 \newpage
 
 #### Final model and final prediction on validation set. 
-From table above, randomForest model 3 ( _rf_model_ ) is the best performing model. Even though the performance between all the models are very close, I still selected model 3 as the final model to apply on the validation because it meets my requirement of using Kappa to select the best model. The selected model used mtry of __20__ and nodesize of __45__.
+From table above, randomForest model 3 ( _rf_model_ ) is the best performing model. Even though the performance between kNN and the last two models from randomForest are very close in terms of accuracy, it it clear that randomForest model 3 is a better model using Kappa as a metric. Therefore, I still selected randomForest model 3 as the final model to apply on the validation because. The selected model used mtry of __15__ and nodesize of __25__.
 
 
 ```{r, fitting_final_model,  eval=F, echo=T }
@@ -1086,7 +1128,7 @@ From table above, randomForest model 3 ( _rf_model_ ) is the best performing mod
 
 ```
 
-The final confusion matrix show an accuracy of 85.8% and sentivity of 0.6. 
+The final confusion matrix shows an Accuracy of __86%__, Kappa of __0.58__, and  Sensitivity of __0.6__. 
 
 
 #### Important Variables. 
@@ -1105,9 +1147,9 @@ The randomForest model ranks the features (variables) used in the classification
 
 
 ## Conclusion
-In this project, kNN and randomForest were used to predict whether an individual's income will be <=50K or >50K. Both algorithms performed very competitively, with randomForest winning with a small margin. The final model on the validation set yielded an overall accuracy of 85.6% (almost 86%). Even with the low prevalence of the positive class,  the model is able to correctly predict the positive class 60% of the time, which is pretty good. The model also showed that capital gain or loss is the most important variable in the classification of whether an individual's income is <=50K or >50K. The top four variables in the model for predicting the outcome are _capital_gain_loss_, _education_num_, _age_, and _hour_per_week_. 
+In this project, kNN and randomForest were used to predict whether an individual's income will be <=50K or >50K. Both algorithms performed very competitively, with randomForest winning based on Kappa performance. The final model on the validation set yielded an overall accuracy of 86%. Even with the low prevalence of the positive class,  the model is able to correctly predict the positive class 60% of the time, which is pretty good. The model also showed that capital gain or loss is the most important variable in the classification of whether an individual's income is <=50K or >50K. The top four variables in the model for predicting the outcome are _capital_gain_loss_, _education_num_, _age_, and _hour_per_week_. 
 
-The project, for the sake of time, focused on two algorithm (kNN and randomForest). Although the model's performance is fairly good, an improvement may have been achieved by considering more models and using ensemble methods.  However, the skills acquired through this project is by far the most valuable to me. 
+The project, for the sake of time, focused on two algorithms (kNN and randomForest). Although the final model's performance is fairly good, an improvement may have been achieved by considering more models and using ensemble methods.  However, the skills acquired through this project is by far the most valuable to me. 
 
 \newpage
 
