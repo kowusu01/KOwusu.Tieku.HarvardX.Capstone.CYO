@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.29)  13 FEB 2022 16:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.29)  13 FEB 2022 18:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -578,24 +578,24 @@ LaTeX Warning: Label `tab:unnamed-chunk-2' multiply defined.
 )
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
 
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epsto
 pdf-base.sty
@@ -608,7 +608,7 @@ df-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 128.
+Package hyperref Info: Link coloring OFF on input line 129.
 
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -624,9 +624,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count310
 )
-LaTeX Info: Redefining \ref on input line 128.
-LaTeX Info: Redefining \pageref on input line 128.
-LaTeX Info: Redefining \nameref on input line 128.
+LaTeX Info: Redefining \ref on input line 129.
+LaTeX Info: Redefining \pageref on input line 129.
+LaTeX Info: Redefining \nameref on input line 129.
 (./report.out) (./report.out)
 \@outlinefile=\write4
 \openout4 = `report.out'.
@@ -666,37 +666,37 @@ LaTeX Info: Redefining \nameref on input line 128.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-30.
+31.
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-30.
+31.
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-130.
+131.
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-130.
+131.
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 130.
+(Font)              <12> on input line 131.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 130.
+(Font)              <8> on input line 131.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 130.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 130
+(Font)              <6> on input line 131.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 131
 .
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 130
+LaTeX Font Info:    Trying to load font information for U+msb on input line 131
 .
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -705,41 +705,41 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {c:/Users/admin/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 166.
+(Font)              <10> on input line 167.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 166.
+(Font)              <7> on input line 167.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 166.
+(Font)              <5> on input line 167.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-73.
+74.
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<images/01-raw-data.PNG, id=96, 867.24pt x 217.5628pt>
+<images/01-raw-data.PNG, id=97, 867.24pt x 217.5628pt>
 File: images/01-raw-data.PNG Graphic file (type png)
 <use images/01-raw-data.PNG>
-Package pdftex.def Info: images/01-raw-data.PNG  used on input line 203.
+Package pdftex.def Info: images/01-raw-data.PNG  used on input line 204.
 (pdftex.def)             Requested size: 469.75827pt x 117.84734pt.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-10.
+11.
 (c:/Users/admin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 212.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 213.
 [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.227 \newpage
+l.228 \newpage
                <./images/01-raw-data.PNG>] [3] [4pdfTeX warning (ext4): destina
 tion with the same identifier (name{table.1}) has been already used, duplicate 
 ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.337 \newpage
+l.338 \newpage
               ]
-Overfull \hbox (1.83113pt too wide) in paragraph at lines 364--372
+Overfull \hbox (1.83113pt too wide) in paragraph at lines 365--373
  [][] 
  []
 
@@ -747,222 +747,222 @@ Overfull \hbox (1.83113pt too wide) in paragraph at lines 364--372
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.449 \end{verbatim}
+l.450 \end{verbatim}
                     ] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 507--510
+Underfull \hbox (badness 10000) in paragraph at lines 508--511
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 510--513
+Underfull \hbox (badness 10000) in paragraph at lines 511--514
 
  []
 
 [7]
-<report_files/figure-latex/12_scatterplots_1-1.pdf, id=150, 469.755pt x 325.215
+<report_files/figure-latex/12_scatterplots_1-1.pdf, id=151, 469.755pt x 325.215
 pt>
 File: report_files/figure-latex/12_scatterplots_1-1.pdf Graphic file (type pdf)
 
 <use report_files/figure-latex/12_scatterplots_1-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/12_scatterplots_1-1.pdf  use
-d on input line 579.
+d on input line 580.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 2042) in paragraph at lines 594--597
+Underfull \hbox (badness 2042) in paragraph at lines 595--598
 []\T1/lmr/m/n/10 Variable \T1/lmr/m/it/10 ed-u-ca-tion_num \T1/lmr/m/n/10 is th
 e more nor-mally dis-tributed than the rest, fol-lowed by \T1/lmr/m/it/10 age\T
 1/lmr/m/n/10 , and
  []
 
 [8 <./report_files/figure-latex/12_scatterplots_1-1.pdf>]
-<report_files/figure-latex/13_age_distribution-1.pdf, id=166, 469.755pt x 325.2
+<report_files/figure-latex/13_age_distribution-1.pdf, id=167, 469.755pt x 325.2
 15pt>
 File: report_files/figure-latex/13_age_distribution-1.pdf Graphic file (type pd
 f)
 <use report_files/figure-latex/13_age_distribution-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/13_age_distribution-1.pdf  u
-sed on input line 610.
+sed on input line 611.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [9 <./report_files/figure-latex/13_age_distribution-1.pdf>]
-<report_files/figure-latex/education_distribution_original-1.pdf, id=178, 469.7
+<report_files/figure-latex/education_distribution_original-1.pdf, id=179, 469.7
 55pt x 237.88875pt>
 File: report_files/figure-latex/education_distribution_original-1.pdf Graphic f
 ile (type pdf)
 <use report_files/figure-latex/education_distribution_original-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/education_distribution_origi
-nal-1.pdf  used on input line 646.
+nal-1.pdf  used on input line 647.
 (pdftex.def)             Requested size: 469.75386pt x 237.88815pt.
-<report_files/figure-latex/education_distribution_general-1.pdf, id=179, 469.75
+<report_files/figure-latex/education_distribution_general-1.pdf, id=180, 469.75
 5pt x 237.88875pt>
 File: report_files/figure-latex/education_distribution_general-1.pdf Graphic fi
 le (type pdf)
 <use report_files/figure-latex/education_distribution_general-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/education_distribution_gener
-al-1.pdf  used on input line 648.
+al-1.pdf  used on input line 649.
 (pdftex.def)             Requested size: 469.75386pt x 237.88815pt.
 [10 <./report_files/figure-latex/education_distribution_original-1.pdf> <./repo
 rt_files/figure-latex/education_distribution_general-1.pdf>]
-<report_files/figure-latex/occupation_original_chart-1.pdf, id=198, 469.755pt x
+<report_files/figure-latex/occupation_original_chart-1.pdf, id=199, 469.755pt x
  289.08pt>
 File: report_files/figure-latex/occupation_original_chart-1.pdf Graphic file (t
 ype pdf)
 <use report_files/figure-latex/occupation_original_chart-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/occupation_original_chart-1.
-pdf  used on input line 690.
+pdf  used on input line 691.
 (pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
 [11pdfTeX warning (ext4): destination with the same identifier (name{table.3}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.691 \newpage
+l.692 \newpage
                <./report_files/figure-latex/occupation_original_chart-1.pdf>]
-Overfull \hbox (5.17813pt too wide) in paragraph at lines 733--733
+Overfull \hbox (5.17813pt too wide) in paragraph at lines 734--734
 []\T1/lmr/m/n/10 Natural_resources_construction_and_maintenance|  
  []
 
 
-Overfull \hbox (2.9832pt too wide) in paragraph at lines 733--733
+Overfull \hbox (2.9832pt too wide) in paragraph at lines 734--734
 []\T1/lmr/m/n/10 Production_transportation_and_material_moving|  
  []
 
-<report_files/figure-latex/16_occupation_original_chart-1.pdf, id=211, 469.755p
+<report_files/figure-latex/16_occupation_original_chart-1.pdf, id=212, 469.755p
 t x 325.215pt>
 File: report_files/figure-latex/16_occupation_original_chart-1.pdf Graphic file
  (type pdf)
 <use report_files/figure-latex/16_occupation_original_chart-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/16_occupation_original_chart
--1.pdf  used on input line 736.
+-1.pdf  used on input line 737.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [12pdfTeX warning (ext4): destination with the same identifier (name{table.4}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.737 \newpage
+l.738 \newpage
                <./report_files/figure-latex/16_occupation_original_chart-1.pdf>
 ]
-<report_files/figure-latex/age_and_income_and-1.pdf, id=223, 361.35pt x 216.81p
+<report_files/figure-latex/age_and_income_and-1.pdf, id=224, 361.35pt x 216.81p
 t>
 File: report_files/figure-latex/age_and_income_and-1.pdf Graphic file (type pdf
 )
 <use report_files/figure-latex/age_and_income_and-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/age_and_income_and-1.pdf  us
-ed on input line 751.
+ed on input line 752.
 (pdftex.def)             Requested size: 361.34912pt x 216.80946pt.
-<report_files/figure-latex/unnamed-chunk-1-1.pdf, id=224, 433.62pt x 289.08pt>
+<report_files/figure-latex/unnamed-chunk-1-1.pdf, id=225, 433.62pt x 289.08pt>
 File: report_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-1-1.pdf  used 
-on input line 760.
+on input line 761.
 (pdftex.def)             Requested size: 433.63878pt x 289.09251pt.
 [13 <./report_files/figure-latex/age_and_income_and-1.pdf> <./report_files/figu
 re-latex/unnamed-chunk-1-1.pdf>]
-<report_files/figure-latex/education_and_income-1.pdf, id=243, 469.755pt x 289.
+<report_files/figure-latex/education_and_income-1.pdf, id=244, 469.755pt x 289.
 08pt>
 File: report_files/figure-latex/education_and_income-1.pdf Graphic file (type p
 df)
 <use report_files/figure-latex/education_and_income-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/education_and_income-1.pdf  
-used on input line 767.
+used on input line 768.
 (pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
-<report_files/figure-latex/education_num_and_income-1.pdf, id=244, 469.755pt x 
+<report_files/figure-latex/education_num_and_income-1.pdf, id=245, 469.755pt x 
 252.945pt>
 File: report_files/figure-latex/education_num_and_income-1.pdf Graphic file (ty
 pe pdf)
 <use report_files/figure-latex/education_num_and_income-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/education_num_and_income-1.p
-df  used on input line 776.
+df  used on input line 777.
 (pdftex.def)             Requested size: 469.75386pt x 252.94438pt.
 [14 <./report_files/figure-latex/education_and_income-1.pdf> <./report_files/fi
 gure-latex/education_num_and_income-1.pdf>]
-<report_files/figure-latex/gender_age_income-1.pdf, id=261, 469.755pt x 325.215
+<report_files/figure-latex/gender_age_income-1.pdf, id=262, 469.755pt x 325.215
 pt>
 File: report_files/figure-latex/gender_age_income-1.pdf Graphic file (type pdf)
 
 <use report_files/figure-latex/gender_age_income-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/gender_age_income-1.pdf  use
-d on input line 818.
+d on input line 819.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [15pdfTeX warning (ext4): destination with the same identifier (name{table.5}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.820 \newpage
+l.821 \newpage
               pdfTeX warning (ext4): destination with the same identifier (name
 {table.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.820 \newpage
+l.821 \newpage
                <./report_files/figure-latex/gender_age_income-1.pdf>]
-<report_files/figure-latex/unnamed-chunk-2-1.pdf, id=273, 469.755pt x 216.81pt>
+<report_files/figure-latex/unnamed-chunk-2-1.pdf, id=274, 469.755pt x 216.81pt>
 
 File: report_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-2-1.pdf  used 
-on input line 832.
+on input line 833.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
 [16pdfTeX warning (ext4): destination with the same identifier (name{table.7}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.886 \newpage
+l.887 \newpage
               pdfTeX warning (ext4): destination with the same identifier (name
 {table.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.886 \newpage
+l.887 \newpage
                <./report_files/figure-latex/unnamed-chunk-2-1.pdf>] [17]
-<images/final_training_set.PNG, id=299, 776.30025pt x 230.66174pt>
+<images/final_training_set.PNG, id=300, 776.30025pt x 230.66174pt>
 File: images/final_training_set.PNG Graphic file (type png)
 <use images/final_training_set.PNG>
-Package pdftex.def Info: images/final_training_set.PNG  used on input line 1014
+Package pdftex.def Info: images/final_training_set.PNG  used on input line 1015
 .
 (pdftex.def)             Requested size: 469.7638pt x 139.58069pt.
 [18pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1027 \end{Shaded}
+l.1028 \end{Shaded}
                     <./images/final_training_set.PNG>]
-<report_files/figure-latex/age_scaled-1.pdf, id=306, 469.755pt x 289.08pt>
+<report_files/figure-latex/age_scaled-1.pdf, id=307, 469.755pt x 289.08pt>
 File: report_files/figure-latex/age_scaled-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/age_scaled-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/age_scaled-1.pdf  used on in
-put line 1046.
+put line 1047.
 (pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
-<report_files/figure-latex/education_num_scaled-1.pdf, id=307, 469.755pt x 289.
+<report_files/figure-latex/education_num_scaled-1.pdf, id=308, 469.755pt x 289.
 08pt>
 File: report_files/figure-latex/education_num_scaled-1.pdf Graphic file (type p
 df)
 <use report_files/figure-latex/education_num_scaled-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/education_num_scaled-1.pdf  
-used on input line 1048.
+used on input line 1049.
 (pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
 [19 <./report_files/figure-latex/age_scaled-1.pdf>]
-<report_files/figure-latex/final_weight_scaled-1.pdf, id=319, 469.755pt x 289.0
+<report_files/figure-latex/final_weight_scaled-1.pdf, id=320, 469.755pt x 289.0
 8pt>
 File: report_files/figure-latex/final_weight_scaled-1.pdf Graphic file (type pd
 f)
 <use report_files/figure-latex/final_weight_scaled-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/final_weight_scaled-1.pdf  u
-sed on input line 1050.
+sed on input line 1051.
 (pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
-<report_files/figure-latex/hours_per_week_scaled-1.pdf, id=320, 469.755pt x 303
+<report_files/figure-latex/hours_per_week_scaled-1.pdf, id=321, 469.755pt x 303
 .1325pt>
 File: report_files/figure-latex/hours_per_week_scaled-1.pdf Graphic file (type 
 pdf)
 <use report_files/figure-latex/hours_per_week_scaled-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/hours_per_week_scaled-1.pdf 
- used on input line 1052.
+ used on input line 1053.
 (pdftex.def)             Requested size: 469.75386pt x 303.13176pt.
 [20 <./report_files/figure-latex/education_num_scaled-1.pdf> <./report_files/fi
 gure-latex/final_weight_scaled-1.pdf>]
-<report_files/figure-latex/capital_gain_loss_scaled-1.pdf, id=337, 469.755pt x 
+<report_files/figure-latex/capital_gain_loss_scaled-1.pdf, id=338, 469.755pt x 
 303.1325pt>
 File: report_files/figure-latex/capital_gain_loss_scaled-1.pdf Graphic file (ty
 pe pdf)
 <use report_files/figure-latex/capital_gain_loss_scaled-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/capital_gain_loss_scaled-1.p
-df  used on input line 1054.
+df  used on input line 1055.
 (pdftex.def)             Requested size: 469.75386pt x 303.13176pt.
 [21 <./report_files/figure-latex/hours_per_week_scaled-1.pdf> <./report_files/f
 igure-latex/capital_gain_loss_scaled-1.pdf>] [22pdfTeX warning (ext4): destinat
@@ -970,64 +970,64 @@ ion with the same identifier (name{table.9}) has been already used, duplicate i
 gnored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1120 \newpage
+l.1148 \newpage
                ] [23pdfTeX warning (ext4): destination with the same identifier
  (name{table.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1190 \newpage
+l.1218 \newpage
                ]
-<report_files/figure-latex/knn_cv_results_charts-1.pdf, id=372, 469.755pt x 216
+<report_files/figure-latex/knn_cv_results_charts-1.pdf, id=375, 469.755pt x 216
 .81pt>
 File: report_files/figure-latex/knn_cv_results_charts-1.pdf Graphic file (type 
 pdf)
 <use report_files/figure-latex/knn_cv_results_charts-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/knn_cv_results_charts-1.pdf 
- used on input line 1237.
+ used on input line 1265.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
 [24pdfTeX warning (ext4): destination with the same identifier (name{table.11})
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1238 \newpage
+l.1266 \newpage
                 <./report_files/figure-latex/knn_cv_results_charts-1.pdf>]
-<report_files/figure-latex/final_confusion_matrix_knn-1.pdf, id=383, 469.755pt 
+<report_files/figure-latex/final_confusion_matrix_knn-1.pdf, id=386, 469.755pt 
 x 433.62pt>
 File: report_files/figure-latex/final_confusion_matrix_knn-1.pdf Graphic file (
 type pdf)
 <use report_files/figure-latex/final_confusion_matrix_knn-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/final_confusion_matrix_knn-1
-.pdf  used on input line 1247.
+.pdf  used on input line 1275.
 (pdftex.def)             Requested size: 469.75386pt x 433.61894pt.
 [25 <./report_files/figure-latex/final_confusion_matrix_knn-1.pdf>] [26pdfTeX w
 arning (ext4): destination with the same identifier (name{table.12}) has been a
 lready used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1365 \end{verbatim}
+l.1393 \end{verbatim}
                      ] [27]
-<report_files/figure-latex/roc_curves_models_1_and_2-1.pdf, id=410, 469.755pt x
+<report_files/figure-latex/roc_curves_models_1_and_2-1.pdf, id=413, 469.755pt x
  325.215pt>
 File: report_files/figure-latex/roc_curves_models_1_and_2-1.pdf Graphic file (t
 ype pdf)
 <use report_files/figure-latex/roc_curves_models_1_and_2-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/roc_curves_models_1_and_2-1.
-pdf  used on input line 1434.
+pdf  used on input line 1464.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [28pdfTeX warning (ext4): destination with the same identifier (name{table.13})
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1447 
-        <./report_files/figure-latex/roc_curves_models_1_and_2-1.pdf>]
-<report_files/figure-latex/rf_model_3-1.pdf, id=425, 469.755pt x 289.08pt>
+l.1466 \newpage
+                <./report_files/figure-latex/roc_curves_models_1_and_2-1.pdf>]
+<report_files/figure-latex/rf_model_3-1.pdf, id=426, 469.755pt x 289.08pt>
 File: report_files/figure-latex/rf_model_3-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/rf_model_3-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/rf_model_3-1.pdf  used on in
-put line 1448.
+put line 1480.
 (pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1448--1452
+Underfull \hbox (badness 10000) in paragraph at lines 1480--1484
 [][]
  []
 
@@ -1035,15 +1035,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 1448--1452
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1470 \newpage
+l.1502 \newpage
                 <./report_files/figure-latex/rf_model_3-1.pdf>]
-<report_files/figure-latex/most_important_variables-1.pdf, id=436, 469.755pt x 
+<report_files/figure-latex/most_important_variables-1.pdf, id=439, 469.755pt x 
 325.215pt>
 File: report_files/figure-latex/most_important_variables-1.pdf Graphic file (ty
 pe pdf)
 <use report_files/figure-latex/most_important_variables-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/most_important_variables-1.p
-df  used on input line 1541.
+df  used on input line 1573.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [30] [31 <./report_files/figure-latex/most_important_variables-1.pdf>] [32] (./
 report.aux)
@@ -1051,12 +1051,12 @@ report.aux)
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 89ED1902EF0FB61A63FB6C966765CF2A;3597.
+(rerunfilecheck)             Checksum: 6A5E9FCD0844BB462C8B8CB2A198BDF0;3591.
  ) 
 Here is how much of TeX's memory you used:
- 13477 strings out of 480247
- 220573 string characters out of 5894474
- 515635 words of memory out of 5000000
+ 13478 strings out of 480247
+ 220586 string characters out of 5894474
+ 515803 words of memory out of 5000000
  31007 multiletter control sequences out of 15000+600000
  523209 words of font info for 73 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1076,10 +1076,10 @@ mf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/admin/AppData/Roaming/TinyTe
 X/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/admin/AppData/Roaming/T
 inyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/admin/AppData/Roam
 ing/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on report.pdf (32 pages, 756118 bytes).
+Output written on report.pdf (32 pages, 760382 bytes).
 PDF statistics:
- 562 PDF objects out of 1000 (max. 8388607)
- 450 compressed objects within 5 object streams
- 126 named destinations out of 1000 (max. 500000)
+ 566 PDF objects out of 1000 (max. 8388607)
+ 454 compressed objects within 5 object streams
+ 127 named destinations out of 1000 (max. 500000)
  281 words of extra memory for PDF output out of 10000 (max. 10000000)
 

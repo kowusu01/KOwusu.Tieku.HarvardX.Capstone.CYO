@@ -1,7 +1,7 @@
 ---
 title: "HarvardX PH125.9x - Capstone Project - CYO"
 subtitle: "Predicting Income Using Knn and randomForest"
-author: "Kwaku Owusu-Tieku"
+author: "Kwaku Owusu-Tieku (kowusu01@gmail.com)"
 date: "2/9/2022"
 output: pdf_document
 ---
@@ -889,7 +889,20 @@ _savePrediction_ is set to _TRUE_ so caret will retain the predictions from the 
 
 
 #### Performance metric.  
-In this projet, I use _AUC_ (Area Under the Curve) as the metric for selecting best models during cross validation. In the confusion matrix,  use Kappa instead of accuracy when selecting best model. Kappa is often preferred to accuracy when dealing with imbalanced dataset which is the case in this project. In th caret training function, the _metric_ will be set to __ROC__, to indicate to caret to select best model using _AUC_ rather than Accuracy.  
+In this projet, I use _AUC_ (Area Under the Curve) as the metric for selecting best models during cross validation. In th caret training function, the _metric_ will be set to __ROC__, to indicate to caret to select best model using _AUC_ rather than Accuracy.  
+
+
+When a model is fitted on a test, I use Kappa instead of accuracy when selecting best model. Kappa is often preferred to accuracy when dealing with imbalanced dataset which is the case in this project.   
+
+In the analysis, I have intentionally set the positive class to "Y" (>50K). Even though in terms of income, both classes (>50K and <=50K) both have equal importance; mistakingly predicting that someone earns <50K does not pose a risk to the individual. Howvever, I want to place emphasis on the positive class and pay attention to how the models are able to distinguish between the classes. 
+
+
+Due to the high imbalance of the data, (the positive class, over50K (Y) only occurs 24% in the dataset), any algorithm can achieve 76% accuracy by picking (guessing) the class that occurs most. The overall accuracy, therefore, is not the best performance measure in this case. using Kappa is recommended as an alternative to using the overall accuracy^[Nwanganga & Chapple, (2020), pp. 323-325]. 
+
+Kappa uses the overall _predictive accuracy_ which is pretty much a ratio of correct predictions to all predictions. The overall accuracy is then adjusted by factoring into the equation, the _possibility of predicting the correct class by chance_. The details of how to compute Kappa is beyond the score of the project.
+
+Kappa values range from 0 to 1 with values above 0.5 being considered moderate to very good. Values below 0.5 are considered fair to poor performance[Nwagana, 324]
+
 
 \newpage
 
@@ -979,7 +992,7 @@ We can see from the details above that in model 1 (left table), accuracy, kappa,
   
 \newpage  
   
-### RandomForst Models 
+### RandomForest Models 
 #### RandomForest Model 1. Using randomForest defaults for training. 
 In this section, I used the same approach as used when training the knn models. I used a sample (5K observations) to train the models. There are two main parameters of interest to me; _mtry_ (number of random features to use in each split), and nodesize (minimum number of nodes in the terminal nodes or leaves). Number of tree (ntree) can also be set for randomForest, but in this case, I let caret choose values for ntree.  
 
@@ -1079,6 +1092,7 @@ The following shows the cross validation results for model 2. Even though the be
 
 ```
 
+\newpage
 
 
 #### RandomForest Model 3. Attempt to tune randomForest nodesize parameter. 
