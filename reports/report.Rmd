@@ -907,9 +907,9 @@ Kappa values range from 0 to 1 with values above 0.5 being considered moderate t
 \newpage
 
 ### KNN Models
-First, I trained two KNN models and picked the best performinng one. My approach was, first, I trained a model using caret defaults (knn_model_1). In knn, there is only one parameter to tune k. In the dafault  model, I used a tuneLenght of 10 to allow caret to select 10 values for k. This model provided a _best_ value for k from the cross validation.  I fit that model to the entire training set, use the fit to make predictions on the test.
+First, I trained two KNN models and picked the best performing one. My approach was, first, I trained a model using caret defaults (knn_model_1). In kNN, there is only one parameter to tune k. In the default  model, I used a tuneLength of 10 to allow caret to select 10 values for k. This model provided a _best_ value for k from the cross validation.  I fit that model to the entire training set, then use the fit to make predictions on the test.
 
-I take the _best k_ from the first model, and expanded around it to provide more tuning values for k and used it to train another model (knn_model_2). I fitted the new model on the entire training set, and made another predictions on test. I then compare the two models. 
+I take the _best k_ from the first model, and expanded around it to provide more tuning values for k and used it to train another model (knn_model_2). I fitted the new model on the entire training set, and made another predictions on test. I then compared the two models. 
 
 ```{r knn_model_1_train, eval=F, echo=T}
 knn_model_1 <- train(
@@ -994,9 +994,9 @@ We can see from the details above that in model 1 (left table), accuracy, kappa,
   
 ### RandomForest Models 
 #### RandomForest Model 1. Using randomForest defaults for training. 
-In this section, I used the same approach as used when training the knn models. I used a sample (5K observations) to train the models. There are two main parameters of interest to me; _mtry_ (number of random features to use in each split), and nodesize (minimum number of nodes in the terminal nodes or leaves). Number of tree (ntree) can also be set for randomForest, but in this case, I let caret choose values for ntree.  
+In this section, I used the same approach as used when training the kNN models. I used a sample (5K observations) to train the models. There are two main parameters of interest to me; _mtry_ (number of random features to use in each split), and nodesize (minimum number of nodes in the terminal nodes or leaves). Number of tree (ntree) can also be set for randomForest, but in this case, I let caret choose values for ntree.  
 
-First, I train a model using caret defaults ( _rf_model_1_ ), then take the best mtry from that model, expand on it and use it to train another model ( _rf_model_2_ ) to see if there is an _mtry_ that yields a better performance. I then use the new mtry value and train another model (rf_model_3),  this time searching for an optimized _nodesize_. At the end, I select the best model among these three, and compare that to the one from knn. 
+First, I train a model using caret defaults ( _rf_model_1_ ), then take the best mtry from that model, expand on it and use it to train another model ( _rf_model_2_ ) to see if there is an _mtry_ that yields a better performance. I then use the new mtry value and train another model (rf_model_3),  this time searching for an optimized _nodesize_. At the end, I select the best model among these three, and compare that to the one from kNN. 
 
 ``` {r rf_model_1, eval=F, echo=T}
 
