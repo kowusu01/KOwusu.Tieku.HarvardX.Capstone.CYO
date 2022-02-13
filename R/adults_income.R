@@ -742,11 +742,11 @@ perf_stats <- performance_stats_1 %>%
     rbind(performance_stats_3)
 
 
-perf_stats
-
 print(paste("done training rf model - ", Sys.time()) )
 
 row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)", "rf_model.2 (find best mtry)", "rf_model.3 (find best nodesize)")
+perf_stats
+
 
 saveRDS(perf_stats, "rda/rf_test_performance_stats.rda")
 
