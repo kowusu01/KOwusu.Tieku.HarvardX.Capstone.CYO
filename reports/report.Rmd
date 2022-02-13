@@ -1029,10 +1029,10 @@ Overall, without any tuning, the model performance is pretty good; Sensitivity a
 
 
 
-#### RandomForest Model 2. Attempt to tune mtry. 
-With this model, the same sample (5K observations from the training set) with the same cross validation were used in an attempt to tune mtry. From model 1, it was noticed that the best mtry was ```r rf_model_1_results$mtry[which.max(rf_model_1_results$ROC)] ``` . The idea was to expand the mtry around the mtry obtained from model 1 and  see if there is a better mtry. With this approach, the best cross validation ROC for model 2 is achieved with mtry = ```r rf_model_2_results$mtry[which.max(rf_model_2_results$ROC)]```.  
+
 #### RandomForest Model 2. Attempt to tune mtry paramaters. 
-With this model, the same sample (5K observations from the training set) with the same cross validation were used in an attempt to tune mtry. From model 1, i the best mtry was ```r rf_model_1_results$mtry[which.max(rf_model_1_results$ROC)] ``` . The idea was to expand the around the mtry obtained from model 1 and  see if there is a better mtry. With this approach, the best cross validation ROC for model 2 is achieved with mtry = ```r rf_model_2_results$mtry[which.max(rf_model_2_results$ROC)]```.  
+With this model, the same sample (5K observations from the training set) with the same cross validation were used in an attempt to tune mtry. From model 1, the best mtry was ```r rf_model_1_results$mtry[which.max(rf_model_1_results$ROC)] ``` . The idea was to expand the around the mtry obtained from model 1 and  see if there is a better mtry. With this approach, the best cross validation ROC for model 2 is achieved with mtry = ```r rf_model_2_results$mtry[which.max(rf_model_2_results$ROC)]```.  
+>>>>>>> Stashed changes
 
 
 
