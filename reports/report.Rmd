@@ -250,15 +250,21 @@ __Structure of the dataframe__
    
    
 
-The data contains 15 columns;  the _Income_ column is the response variable with the other fourteen columns being the independent variables. The structure of the dataframe looks as below:   
+The data contains 15 columns;  the _Income_ column is the response variable with the other fourteen columns being the independent variables. The structure of the dataframes looks as below:   
    
       
-```{r 04_dataframe_structure, message=FALSE, warning=FALSE, echo=TRUE}
+```{r dataframe_structure_train, message=FALSE, warning=FALSE, echo=TRUE}
 
  glimpse(adult_income_train) 
   
 ```
+\par\noindent\rule{\textwidth}{0.4pt}
 
+```{r dataframe_structure_validation, message=FALSE, warning=FALSE, echo=TRUE}
+
+ glimpse(adult_income_validation) 
+  
+```
 
 \newpage   
 
@@ -1193,17 +1199,17 @@ The project, for the sake of time, focused on two algorithms (kNN and randomFore
 
 ## Technical Details
 
-### Source Code and Repository
-The source code for the entire project can be found on github at https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO
+### Source Code & Github Repository
+The source code for the entire project can be found on github at:  
+https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO
 
 
 ### Development Environment Used
-OS: Windows 10 x64 (build 19041)  
+OS: Windows 10 x64 (build 19041),   16GB RAM  
 Machine: Dell Latitude, i5 Dual Core @ 2.4GHz and 2.5GHz  
-Memory: 16GB  
 R: version 4.1.2 (2021-11-01)   
 
-_Detailed R Session Info_
+__Detailed R Session Info__
 ```{r r_session_info}
 
   sessionInfo()
