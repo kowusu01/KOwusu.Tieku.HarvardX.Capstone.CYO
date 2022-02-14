@@ -191,6 +191,8 @@ In this project, I will I apply kNN and randomForest to a dataset containing var
 The kNN and randomForest algorithms were chosen because they are very easy to train, and they are able handle a wide range data including a mix of categorical and numeric variables and offer good performance. 
 
 
+For details on reproducing the analysis presented in this document, refer to the Technical Details section.
+
 \newpage
 
 
@@ -1164,6 +1166,28 @@ The randomForest model ranks the features (variables) used in the classification
 In this project, kNN and randomForest were used to predict whether an individual's income will be <=50K or >50K. Both algorithms performed very competitively, with randomForest winning based on Kappa performance. The final model on the validation set yielded an overall accuracy of 86%. Even with the low prevalence of the positive class,  the model is able to correctly predict the positive class 60% of the time, which is pretty good. The model also showed that capital gain or loss is the most important variable in the classification of whether an individual's income is <=50K or >50K. The top four variables in the model for predicting the outcome are _capital_gain_loss_, _education_num_, _age_, and _hour_per_week_. 
 
 The project, for the sake of time, focused on two algorithms (kNN and randomForest). Although the final model's performance is fairly good, an improvement may have been achieved by considering more models and using ensemble methods.  However, the skills acquired through this project is by far the most valuable to me. 
+
+\newpage
+
+## Technical Details
+
+### Source Code and Repository
+The source code for the entire project can be found on github at https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO
+
+
+### Development Environment Used
+OS: Windows 10 x64 (build 19041)  
+Machine: Dell Latitude, i5 Dual Core @ 2.4GHz and 2.5GHz  
+Memory: 16GB  
+R: version 4.1.2 (2021-11-01)   
+
+_Detailed R Session Info_
+```{r r_session_info}
+
+  sessionInfo()
+
+```
+
 
 \newpage
 
