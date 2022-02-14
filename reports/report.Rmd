@@ -1099,9 +1099,31 @@ The following shows the cross validation results for model 2. Even though the be
 
 #### RandomForest Model 3. Attempt to tune randomForest nodesize parameter. 
 The final two models involved attempting to tune randomforest mtry parameter. In model 1, caret selected the mtry; model 2 tuned the mtry from model 1.  
-In model 3, mtry from model 2 is used and held it constant to find the best nodesize.  Different models were fitted across different values of nodesize and the one with best Kappa was selected. The plot below shows the values of Kappa across different values for nodesize in model 3.
+In model 3, mtry from model 2 is used and held it constant to find the best nodesize.  Different models were fitted across different values of nodesize and the one with best Kappa was selected. 
 
-``` {r rf_model_3, fig.height=4}
+```{r randomForest_model_3_train, eval=F, echo=T}
+# given a fixed mtry value, train an rf model and with different values for nodesize
+fnTrainRandomforest_Tune_nodesize <- function(train_sample, selected_mtry){
+  nodesize <- c(seq(10, 100, 5),150,200)
+  map_df(nodesize, function(n){
+    rf_train <- 
+      train(
+        over50K ~ ., 
+        method = "rf", 
+        data = train_sample,
+        tuneGrid  = data.frame(mtry = c(selected_mtry)),
+        allowParallel=TRUE, nodesize = n)
+        list(nodesize=n,accuracy=rf_train$results$Accuracy, kappa=rf_train$results$Kappa)
+  } )
+}
+
+
+
+```
+
+The plot below shows the values of Kappa across different values for nodesize in model 3.
+
+``` {r rf_model_3, fig.height=3}
 
  model_3_best_nodesize <- rf_model_3[which.max(rf_model_3$kappa), 1] %>% pull(nodesize)
  

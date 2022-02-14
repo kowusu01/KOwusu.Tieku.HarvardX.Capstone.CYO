@@ -543,13 +543,11 @@ fnTrainRandomforest_Tune_mtry <- function(train_sample){
   )
 }
 
-# for training models 3, 4 to find the best nodesize
+# for training randomForest model 3 - find best nodesize
 # given a fixed mtry value, train an rf model and with different values for nodesize
 fnTrainRandomforest_Tune_nodesize <- function(train_sample, selected_mtry){
-  
   nodesize <- c(seq(10, 100, 5),150,200)
   map_df(nodesize, function(n){
-    
     rf_train <- 
       train(
         over50K ~ .,
@@ -558,9 +556,7 @@ fnTrainRandomforest_Tune_nodesize <- function(train_sample, selected_mtry){
         tuneGrid  = data.frame(mtry = c(selected_mtry)),
         allowParallel=TRUE,
         nodesize = n)
-    
-    list(nodesize=n,accuracy=rf_train$results$Accuracy, kappa=rf_train$results$Kappa)
-    
+        list(nodesize=n,accuracy=rf_train$results$Accuracy, kappa=rf_train$results$Kappa)
   } )
 }
 
@@ -643,9 +639,9 @@ print(paste("done training knn model 2 - ", Sys.time()) )
 saveRDS(knn_model_1$results, "rda/knn_model_1_cv_results.rda")
 saveRDS(knn_model_2$results, "rda/knn_model_2_cv_results.rda")
 
-plot(knn_model_1)
-dev.new()
-plot(knn_model_2)
+#plot(knn_model_1)
+#dev.new()
+#plot(knn_model_2)
 
 # knn fit on entire training set
 print(paste("fitting knn model on entire training set - ", Sys.time()))
@@ -690,8 +686,8 @@ print (paste0("fitting model_1 with best mtry=", model_1$bestTune$mtry, " - ", S
 fit_1 <- randomForest(over50K ~ ., data = training_set_final, mtry = model_1$bestTune$mtry, importance = TRUE)
 Sys.time()
 (performance_stats_1 <- fnPredictOnTest(fit_1, training_set_final, test_set_final, "rf_model_1"))
-dev.new()
-plot(model_1)
+#dev.new()
+#plot(model_1)
 saveRDS(model_1, "rda/rf_model_1.rda")
 saveRDS(model_1$results, "rda/rf_model_1_results.rda")
 Sys.time()
