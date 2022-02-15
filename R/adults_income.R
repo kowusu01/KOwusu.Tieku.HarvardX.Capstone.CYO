@@ -708,6 +708,26 @@ saveRDS(model_2$results, "rda/rf_model_2_results.rda")
 Sys.time()
 
 
+################################################################
+# compute and save ROC information
+positive_class <- "Y"
+rf_model_1_predictions <- predict(model_1, test_set_final, type = "prob")
+rf_model_2_predictions <- predict(model_2, test_set_final, type = "prob")
+
+roc_predictions_1 <- prediction(rf_model_1_predictions[, positive_class], test_set_final$over50K)
+roc_predictions_2 <- prediction(rf_model_2_predictions[, positive_class], test_set_final$over50K)
+
+roc_performance_1 <- performance(roc_predictions_1, "tpr", "fpr")
+roc_performance_2 <- performance(roc_predictions_2, "tpr", "fpr")
+
+saveRDS(roc_predictions_1,"rda/roc_predictions_1.rda")
+saveRDS(roc_predictions_2,"rda/roc_predictions_2.rda")
+
+saveRDS(roc_performance_1,"rda/roc_performance_1.rda")
+saveRDS(roc_performance_2,"rda/roc_performance_2.rda")
+
+
+
 # ##############################################################
 # 3. setting mtry constant to the value obtained from step 3, 
 #    attempt to tune nodesize
