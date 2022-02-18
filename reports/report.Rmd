@@ -66,8 +66,7 @@ output: pdf_document
   
   # from the report file perspective
   rda_path <- "../rda"
-  #rda_path <- "rda"
-  
+
   #1. load datasets
   # this is tne original training dataset
   adult_income_train <- readRDS( file.path( rda_path, "adult_income_train.rda"))
@@ -127,9 +126,7 @@ output: pdf_document
 ```{r my_custom_themes}
     
     #########################################################################
-    # my bar chart theme
-    # 
-    #
+    # my custom bar chart theme
     #########################################################################
     
     #plot.title
@@ -149,7 +146,8 @@ output: pdf_document
     
     minimal_chart_theme <- theme_minimal() + chart_main_title_theme + chart_axis_theme
     
-    gray_chart_theme_45 <- theme_gray() + chart_main_title_theme + chart_axis_theme + angled_45_x_axis_labels_theme
+    gray_chart_theme_45 <- theme_gray() + chart_main_title_theme +
+      chart_axis_theme + angled_45_x_axis_labels_theme
     
     #################################################
     ##
@@ -172,7 +170,6 @@ output: pdf_document
     
     my_colors_8<-c("#F4A582", "#92C5DE","#66C2A5", "#A6D854","#FFD92F", "#66BD63", "#1A9850", "#FDAE61", "#D9EF8B")
     
-
 
 ```
 
@@ -653,7 +650,7 @@ __Income by gender __. Gender and income inequality has always been a topic of c
 ```
   
     
-Education wise, the females are equally educated as the men, but the average age for females is a bit lower than that of the males, meaning there are more younger women in the workforce (probably earning lower salaries), but am not sure if that explains the difference. 
+Education wise, the average number of years spent in education is the same for both males and females (see boxplot below right). But the males have a higher proportion of people with education above the average than the females, which could translate into higher incomes for males.  
 
 ```{r gender_age_income}
 
@@ -1155,12 +1152,14 @@ Models 3 suggests the number ```r model_3_best_nodesize``` as an ideal value for
 \newpage
 
 #### Final model and final prediction on validation set. 
-From table above, randomForest model 3 ( _rf_model_ ) is the best performing model. Even though the performance between kNN and the last two models from randomForest are very close in terms of accuracy, it it clear that randomForest model 3 is a better model using Kappa as a metric. Therefore, I still selected randomForest model 3 as the final model to apply on the validation because. The selected model used mtry of __15__ and nodesize of __25__.
+From table above, randomForest model 3 ( _rf_model_ ) is the best performing model. Even though the performance between kNN and the last two randomForest models are very close in terms of accuracy, it it clear that randomForest model 3 is a better model using Kappa as a metric. 
+
+However, the execution time for randomForest model 3 (rf_model_3) was over 2hours (more than the time it took for two kNN models plus the first two randomForest models). Yet, rf_model_3 only offered a small improvement over rf_model_2, Therefore, for the sake of simplicity, I selected randomForest model 2 ( __rf_model_2__ ) as the final model to apply on the validation set. In the code, this corresponds to __fit_2__ (the fitted model based on rf_model_2). The selected model used mtry of __15__.
 
 
 ```{r, fitting_final_model,  eval=F, echo=T }
   
-  predict_final <- predict(fit_3, adult_income_validation, type="class")
+  predict_final <- predict(fit_2, adult_income_validation, type="class")
   confusionMatrix_final  <- confusionMatrix(predict_final,  
                                              adult_income_validation[, "over50K"])
 
@@ -1172,8 +1171,9 @@ From table above, randomForest model 3 ( _rf_model_ ) is the best performing mod
 
 ```
 
-The final confusion matrix shows an Accuracy of __86%__, Kappa of __0.58__, and  Sensitivity of __0.6__. 
+The final confusion matrix shows an Accuracy of almost __86%__, Kappa of ```r round(confusionMatrix_final$overall["Kappa"],2)```, and  Sensitivity of ```r  round(confusionMatrix_final$byClass["Sensitivity"],2) ```. 
 
+\newpage
 
 #### Important Variables. 
 The randomForest model ranks the features (variables) used in the classification. The chart below shows the top 20 most important features in classifying whether a given income is >50K or not. From the chart, it can be seen that the capital_gain/loss variable is far the most important variable in the model. This is followed by education_num (number of years of education), and hour_per_week.
@@ -1197,7 +1197,7 @@ The project, for the sake of time, focused on two algorithms (kNN and randomFore
 
 \newpage
 
-## Technical Details
+## Technical Notes
 
 ### Source Code & Github Repository
 The source code for the entire project can be found on github at:  
@@ -1209,12 +1209,21 @@ OS: Windows 10 x64 (build 19041),   16GB RAM
 Machine: Dell Latitude, i5 Dual Core @ 2.4GHz and 2.5GHz  
 R: version 4.1.2 (2021-11-01)   
 
-__Detailed R Session Info__
-```{r r_session_info}
+### Executing the Scripts outside RStudio
 
-  sessionInfo()
+Note:   
 
-```
+- This project was developed and tested in Windows. It has been tested under __Ubuntu 18.04.3 LTS__ and __Ubuntu 20.04.2 LTS__ and the script ran successfully. It has not been tested under any other operating system.  
+- RStudio is not required to execute the script.  
+
+To execute the script without RStudio:  
+
+- create a root folder and name it e.g. base  
+- create a subfolder R under the base folder and copy the main script ( __adults_income.R__ ) to that folder  
+- open a command window with Administrator privileges (right-click Windows Command Prompt icon and select _Run As Administrator_ )  
+- change directory to the root folder  
+- issue the following command:  __rscript R/adults_income.R__  
+
 
 
 \newpage

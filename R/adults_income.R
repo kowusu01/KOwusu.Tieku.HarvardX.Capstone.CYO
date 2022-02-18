@@ -607,6 +607,9 @@ fnPredictOnTest <- function(rf_fit, train_set, test_set, model_name){
 }
 
 
+# release some memory
+rm(adult_income, adult_income_train, train_set, test_set )
+
 ######################################################
 # knn model training
 ######################################################
@@ -645,10 +648,10 @@ saveRDS(knn_model_2$results, "rda/knn_model_2_cv_results.rda")
 #plot(knn_model_2)
 
 # knn fit on entire training set
-print(paste("fitting knn model on entire training set - ", Sys.time()))
+print(paste("fitting knn models on entire training set - ", Sys.time()))
 knn_fit_1 <- knn3(over50K ~ ., data=training_set_final, k=knn_model_1$bestTune$k)
 knn_fit_2 <- knn3(over50K ~ ., data=training_set_final, k=knn_model_2$bestTune$k)
-print(paste("done fitting knn model on entire training set ", Sys.time()) )
+print(paste("done fitting knn models on entire training set ", Sys.time()) )
 
 knn_pred_1 <- predict(knn_fit_1, newdata=test_set_final, type="class")
 knn_pred_2 <- predict(knn_fit_2, newdata=test_set_final, type="class")
@@ -672,54 +675,56 @@ paste0("kNN model 2: k=", knn_fit_2$k, ", Accuracy=",
        round(knn_confusionMatrix_2$overall["Accuracy"], 2), ", Kappa=", 
        round(knn_confusionMatrix_2$overall["Kappa"],2))
 
-
-print(paste("knn done. - ", Sys.time()))
-
-
 ######################################################
 # END knn model training
 ######################################################
-
+print(paste("knn done. - ", Sys.time()))
+print("==========================================================")
+print(" ")
 
 
 ######################################################
 # rf model training
 ######################################################
 
-print(paste("training rf model - ", Sys.time()) )
+print(paste("training randomForest model - ", Sys.time()) )
 
 # ##############################################################
 # 1. user caret to perform cross validation, using caret defaults
-
+print(paste("training rf model_1 - ", Sys.time()) )
 model_1 <- fnTrainRandomforestWithDefaults(train_sample)
-print ("done training model_1")
-print (paste0("fitting model_1 with best mtry=", model_1$bestTune$mtry, " - ", Sys.time()))
+print(paste("done training rf model_1 - ", Sys.time()) )
+
+print (paste0("fitting rf model_1 with best mtry=", model_1$bestTune$mtry, " - ", Sys.time()))
 fit_1 <- randomForest(over50K ~ ., data = training_set_final, mtry = model_1$bestTune$mtry, importance = TRUE)
-Sys.time()
+print (paste0("done fitting rf model_1 with best mtry=", model_1$bestTune$mtry, " - ", Sys.time()))
 (performance_stats_1 <- fnPredictOnTest(fit_1, training_set_final, test_set_final, "rf_model_1"))
 #dev.new()
 #plot(model_1)
 saveRDS(model_1, "rda/rf_model_1.rda")
 saveRDS(model_1$results, "rda/rf_model_1_results.rda")
-Sys.time()
+print(paste("done with rf model_1 - ", Sys.time()) )
 
 
 # ##############################################################
 # 2. based the tuning parameters caret used in the cv in step 2, attempt to optimize mtry
-Sys.time()
+print(paste("training rf model_2 - ", Sys.time()) )
 model_2 <- fnTrainRandomforest_Tune_mtry(train_sample)
 print ("done training model_2")
-print (paste0("fitting model_2 with best mtry=", model_2$bestTune$mtry, " - ", Sys.time()))
 
+print (paste0("fitting model_2 with best mtry=", model_2$bestTune$mtry, " - ", Sys.time()))
 fit_2  <- randomForest(over50K ~ ., data = training_set_final, mtry = model_2$bestTune$mtry, importance = TRUE)
+print (paste0("done fitting model_2 with best mtry=", model_2$bestTune$mtry, " - ", Sys.time()))
+
 (performance_stats_2 <- fnPredictOnTest(fit_2, training_set_final, test_set_final, "rf_model_2"))
 saveRDS(model_2, "rda/rf_model_2.rda")
 saveRDS(model_2$results, "rda/rf_model_2_results.rda")
-Sys.time()
+print(paste("done with rf model_2 - ", Sys.time()) )
 
 
 ################################################################
 # compute and save ROC information
+print(paste("calculating ROC info for rf models 1 & 2  - ", Sys.time()) )
 positive_class <- "Y"
 rf_model_1_predictions <- predict(model_1, test_set_final, type = "prob")
 rf_model_2_predictions <- predict(model_2, test_set_final, type = "prob")
@@ -733,30 +738,43 @@ roc_performance_2 <- performance(roc_predictions_2, "tpr", "fpr")
 saveRDS(roc_predictions_1,"rda/roc_predictions_1.rda")
 saveRDS(roc_predictions_2,"rda/roc_predictions_2.rda")
 
-saveRDS(roc_performance_1,"rda/roc_performance_1.rda")
+saveRDS(roc_performance_1,"rda/roc_perrformance_1.rda")
 saveRDS(roc_performance_2,"rda/roc_performance_2.rda")
+print(paste("done calculating ROC info for rf models 1 & 2  - ", Sys.time()) )
 
-
-
+################################################################
+# randomForest forest model 3 is left out, 
+# takes too long to execute and not much improvement
+# You can uncomment it out and test it out.
+#
 # ##############################################################
-# 3. setting mtry constant to the value obtained from step 3, 
+# 3. setting mtry constant to the value obtained from step 2, 
 #    attempt to tune nodesize
-Sys.time()
-model_3 <- fnTrainRandomforest_Tune_nodesize(train_sample, model_2$bestTune$mtry)
-(model_3_best_nodesize <- model_3[which.max(model_3$kappa), 1] %>% pull(nodesize))
 
-print ("done training model_3")
-print (paste0("fitting model_3 with best mtry=", model_2$bestTune$mtry, ", nodesize=", model_3_best_nodesize, " - ", Sys.time()))
-fit_3  <- randomForest(over50K ~ ., data = training_set_final, 
-                       mtry = model_2$bestTune$mtry, 
-                       nodesize=model_3_best_nodesize, importance = TRUE)
+    print(paste("training rf model_3 - ", Sys.time()) )
+    model_3 <- fnTrainRandomforest_Tune_nodesize(train_sample, model_2$bestTune$mtry)
+    print ("done training model_3")
+    
+    (model_3_best_nodesize <- model_3[which.max(model_3$kappa), 1] %>% pull(nodesize))
+    print (paste0("fitting model_3 with best mtry=", model_2$bestTune$mtry, ", nodesize=", model_3_best_nodesize, " - ", Sys.time()))
+    fit_3  <- randomForest(over50K ~ ., data = training_set_final, 
+                           mtry = model_2$bestTune$mtry, 
+                           nodesize=model_3_best_nodesize, importance = TRUE)
+    
+    print(paste("done training rf model_3 - ", Sys.time()) )
+    
+    print(paste("fitting rf model_3 - ", Sys.time()) )
+    (performance_stats_3 <- fnPredictOnTest(fit_3, training_set_final, test_set_final, "rf_model_3"))
+    print(paste("done fitting rf model_3 - ", Sys.time()) )
+    
+    saveRDS(model_3, "rda/rf_model_3.rda")
+    saveRDS(performance_stats_3, "rda/rf_model_3_results.rda")
+    print(paste("done with rf model_3 - ", Sys.time()) )
+    print(paste("all models completed - ", Sys.time()) )
 
-(performance_stats_3 <- fnPredictOnTest(fit_3, training_set_final, test_set_final, "rf_model_3"))
-saveRDS(model_3, "rda/rf_model_3.rda")
-saveRDS(performance_stats_3, "rda/rf_model_3_results.rda")
-Sys.time()
 
 # add the best model from knn to our list of performance statistics
+print(paste("putting together performance stats for all the models - ", Sys.time()) )
 best_knn_model <- data.frame( 
                            test.accuracy = knn_confusionMatrix_1$overall["Accuracy"], 
                            test.kappa = knn_confusionMatrix_1$overall["Kappa"],
@@ -765,44 +783,52 @@ best_knn_model <- data.frame(
 
 perf_stats <- performance_stats_1 %>% 
     rbind(best_knn_model) %>% 
-    rbind(performance_stats_2) %>% 
-    rbind(performance_stats_3)
-
-
-print(paste("done training rf model - ", Sys.time()) )
+    rbind(performance_stats_2) %>%  rbind(performance_stats_3)
+   
 
 row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)", "rf_model.2 (find best mtry)", "rf_model.3 (find best nodesize)")
+#row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)", "rf_model.2 (find best mtry)")
 perf_stats
 
-
 saveRDS(perf_stats, "rda/rf_test_performance_stats.rda")
-
+print(paste("done with performance stats - ", Sys.time()) )
 
 #####################################################################
 # HOORAY! FINAL PREDICTIONS
+# 
+# after training rf model_3, I decided to leave it out because it 
+# took too long to run run and did not offer any significant 
+# improvement.
+# 
+# randomForest model 2 (rf_model_2) is therefore my final model to be applied
+# to the validation set
+#
 #####################################################################
 
-predict_final <- predict(fit_3, adult_income_validation, type="class")
-confusionMatrix_final  <- confusionMatrix(predict_final,  adult_income_validation[, "over50K"] )
+print("==========================================================")
+print(" ")
+print(paste("FITTING FINAL MODEL ON VALIDATION - ", Sys.time()) )
+predict_final <- predict(fit_2, adult_income_validation, type="class")
+(confusionMatrix_final  <- confusionMatrix(predict_final,  adult_income_validation[, "over50K"] ))
 
 saveRDS(predict_final, "rda/predictions_final.rda")
 saveRDS(confusionMatrix_final, "rda/confusionMatrix_final.rda")
-
-print(paste( "done fitting final model on validation set - ", Sys.time()))
+print(paste("DONE FITTING FINAL MODEL ON VALIDATION - ", Sys.time()) )
 
 #####################################################################
 
 #####################################################################
 # VARIABLE IMPORTANCE
 #####################################################################
-
-feature_importance <- importance(fit_3, type = 1) %>%  as.data.frame() %>% arrange(desc(MeanDecreaseAccuracy))
+print(paste("extracting important variables - ", Sys.time()) )
+feature_importance <- importance(fit_2, type = 1) %>%  as.data.frame() %>% arrange(desc(MeanDecreaseAccuracy))
 row_names <- row.names(feature_importance)
 row.names(feature_importance) <- NULL
 feature_importance <- data.frame(Feature=row_names) %>% cbind(feature_importance) %>% mutate(Feature=factor(Feature, levels = Feature))
 saveRDS(feature_importance, "rda/important_features.rda")
-
+print(paste("done extracting important variables - ", Sys.time()) )
 print(paste("DONE!! - ", Sys.time()) )
+print("==========================================================")
 
 #####################################################################
 # HOORAY! THE END
