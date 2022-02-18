@@ -667,11 +667,11 @@ saveRDS(knn_confusionMatrix_2, "rda/knn_model_2_confusionMatrix.rda")
 saveRDS(fnTidyCMStats(knn_confusionMatrix_1), "rda/knn_model_1_confusionMatrix_tidy.rda")
 saveRDS(fnTidyCMStats(knn_confusionMatrix_2), "rda/knn_model_2_confusionMatrix_tidy.rda")
 
-paste0("kNN model 1: k=", knn_fit_1$k, ", Accuracy=", 
+paste0("knn model 1: k=", knn_fit_1$k, ", Accuracy=", 
        round(knn_confusionMatrix_1$overall["Accuracy"], 2), ", Kappa=", 
        round(knn_confusionMatrix_1$overall["Kappa"],2))
 
-paste0("kNN model 2: k=", knn_fit_2$k, ", Accuracy=", 
+paste0("knn model 2: k=", knn_fit_2$k, ", Accuracy=", 
        round(knn_confusionMatrix_2$overall["Accuracy"], 2), ", Kappa=", 
        round(knn_confusionMatrix_2$overall["Kappa"],2))
 
