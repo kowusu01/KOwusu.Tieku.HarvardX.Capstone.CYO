@@ -738,7 +738,7 @@ roc_performance_2 <- performance(roc_predictions_2, "tpr", "fpr")
 saveRDS(roc_predictions_1,"rda/roc_predictions_1.rda")
 saveRDS(roc_predictions_2,"rda/roc_predictions_2.rda")
 
-saveRDS(roc_performance_1,"rda/roc_perrformance_1.rda")
+saveRDS(roc_performance_1,"rda/roc_performance_1.rda")
 saveRDS(roc_performance_2,"rda/roc_performance_2.rda")
 print(paste("done calculating ROC info for rf models 1 & 2  - ", Sys.time()) )
 
@@ -791,6 +791,7 @@ row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)"
 perf_stats
 
 saveRDS(perf_stats, "rda/test_performance_stats_final.rda")
+#saveRDS(perf_stats, "rda/test_performance_stats.rda")
 print(paste("done with performance stats - ", Sys.time()) )
 
 #####################################################################
