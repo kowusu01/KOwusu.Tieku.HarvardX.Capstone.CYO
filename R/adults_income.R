@@ -9,7 +9,7 @@
 ## Using the cross validation and number of models
 ## it takes about 4hrs to run from begin to end.
 ##
-## It creates all the .rda files needed for the 
+## It creates all the .rds files needed for the 
 ## report. 
 ##
 ## updated 2/17/2022 @ 10:50pm
@@ -114,8 +114,8 @@ adult_income_validation  <- read.csv(VALIDATION_DATA_PATH, col.names = COL_HEADE
 adult_income_train <- adult_income_train %>% mutate(across (where(is.character), str_trim))
 adult_income_validation <- adult_income_validation %>% mutate(across (where(is.character), str_trim))
 
-saveRDS(adult_income_train, "rda/adult_income_train.rda")
-saveRDS(adult_income_validation, "rda/adult_income_validation.rda")
+saveRDS(adult_income_train, "rda/adult_income_train.rds")
+saveRDS(adult_income_validation, "rda/adult_income_validation.rds")
 
 
 
@@ -407,7 +407,7 @@ adult_income <- adult_income %>% mutate(capital_loss_level = factor(capital_loss
 
 
 #adult_income <- fnCreateNewCapitalGainLossColumn(adult_income)
-saveRDS(adult_income, "rda/adult_income.rda")
+saveRDS(adult_income, "rda/adult_income.rds")
 
 
 
@@ -433,7 +433,7 @@ test_index <- createDataPartition(y = adult_income_train$Income, times = 1, p = 
 train_set <- adult_income_train[-test_index,]
 test_set  <- adult_income_train[test_index,]
 
-saveRDS(test_set, "rda/test_set.rda")
+saveRDS(test_set, "rda/test_set.rds")
 
 
 ###############################################################################
@@ -470,7 +470,7 @@ test_set_final     <-  fnApplyCaretScalePreproc(test_set_final, caret_scale_prep
 ################################################################################
 
 # 1. rename some categorical values
-#adult_income_validation <- readRDS("rda/adult_income_validation.rda")
+#adult_income_validation <- readRDS("rda/adult_income_validation.rds")
 adult_income_validation <- adult_income_validation %>% mutate_at(c("Income"), ~ str_replace(.x, "\\.", ""))
 
 adult_income_validation     <- fnManualTransformations(adult_income_validation)
@@ -486,9 +486,9 @@ adult_income_validation     <-  fnApplyCaretScalePreproc(adult_income_validation
 
 glimpse(adult_income_validation)
 
-saveRDS(training_set_final, "rda/training_set_final.rda") 
-saveRDS(test_set_final, "rda/test_set_final.rda") 
-saveRDS(adult_income_validation, "rda/adult_income_validation_final.rda") 
+saveRDS(training_set_final, "rda/training_set_final.rds") 
+saveRDS(test_set_final, "rda/test_set_final.rds") 
+saveRDS(adult_income_validation, "rda/adult_income_validation_final.rds") 
 
 ################################################################################
 ## END PREPROCESSING
@@ -595,9 +595,9 @@ fnPredictOnTest <- function(rf_fit, train_set, test_set, model_name){
   pred_test   <- predict(rf_fit, test_set, type="class")
   confusionMatrix_test  <- confusionMatrix(pred_test,  test_set[, "over50K"] )
   
-  saveRDS(confusionMatrix_test, paste0("rda/", model_name, "_confusionMatrix.rda"))
-  saveRDS(fnTidyCMStats(confusionMatrix_test), paste0("rda/", model_name, "_confusionMatrix_tidy.rda"))
-  saveRDS(pred_test, paste0("rda/", model_name, "_predictions.rda"))
+  saveRDS(confusionMatrix_test, paste0("rda/", model_name, "_confusionMatrix.rds"))
+  saveRDS(fnTidyCMStats(confusionMatrix_test), paste0("rda/", model_name, "_confusionMatrix_tidy.rds"))
+  saveRDS(pred_test, paste0("rda/", model_name, "_predictions.rds"))
   
   data.frame(test.accuracy = confusionMatrix_test$overall["Accuracy"],
              test.kappa = confusionMatrix_test$overall["Kappa"],
@@ -640,8 +640,8 @@ print(paste("done training knn model 2 - ", Sys.time()) )
 #knn_model_1
 #knn_model_2
 
-saveRDS(knn_model_1$results, "rda/knn_model_1_cv_results.rda")
-saveRDS(knn_model_2$results, "rda/knn_model_2_cv_results.rda")
+saveRDS(knn_model_1$results, "rda/knn_model_1_cv_results.rds")
+saveRDS(knn_model_2$results, "rda/knn_model_2_cv_results.rds")
 
 #plot(knn_model_1)
 #dev.new()
@@ -656,16 +656,16 @@ print(paste("done fitting knn models on entire training set ", Sys.time()) )
 knn_pred_1 <- predict(knn_fit_1, newdata=test_set_final, type="class")
 knn_pred_2 <- predict(knn_fit_2, newdata=test_set_final, type="class")
 
-saveRDS(knn_pred_1, "rda/knn_model_1_predictions.rda")
-saveRDS(knn_pred_2, "rda/knn_model_2_predictions.rda")
+saveRDS(knn_pred_1, "rda/knn_model_1_predictions.rds")
+saveRDS(knn_pred_2, "rda/knn_model_2_predictions.rds")
 
 knn_confusionMatrix_1 <- confusionMatrix(knn_pred_1, test_set_final$over50K)
 knn_confusionMatrix_2 <- confusionMatrix(knn_pred_2, test_set_final$over50K)
-saveRDS(knn_confusionMatrix_1, "rda/knn_model_1_confusionMatrix.rda")
-saveRDS(knn_confusionMatrix_2, "rda/knn_model_2_confusionMatrix.rda")
+saveRDS(knn_confusionMatrix_1, "rda/knn_model_1_confusionMatrix.rds")
+saveRDS(knn_confusionMatrix_2, "rda/knn_model_2_confusionMatrix.rds")
 
-saveRDS(fnTidyCMStats(knn_confusionMatrix_1), "rda/knn_model_1_confusionMatrix_tidy.rda")
-saveRDS(fnTidyCMStats(knn_confusionMatrix_2), "rda/knn_model_2_confusionMatrix_tidy.rda")
+saveRDS(fnTidyCMStats(knn_confusionMatrix_1), "rda/knn_model_1_confusionMatrix_tidy.rds")
+saveRDS(fnTidyCMStats(knn_confusionMatrix_2), "rda/knn_model_2_confusionMatrix_tidy.rds")
 
 paste0("knn model 1: k=", knn_fit_1$k, ", Accuracy=", 
        round(knn_confusionMatrix_1$overall["Accuracy"], 2), ", Kappa=", 
@@ -701,8 +701,8 @@ print (paste0("done fitting rf model_1 with best mtry=", model_1$bestTune$mtry, 
 (performance_stats_1 <- fnPredictOnTest(fit_1, training_set_final, test_set_final, "rf_model_1"))
 #dev.new()
 #plot(model_1)
-saveRDS(model_1, "rda/rf_model_1.rda")
-saveRDS(model_1$results, "rda/rf_model_1_results.rda")
+saveRDS(model_1, "rda/rf_model_1.rds")
+saveRDS(model_1$results, "rda/rf_model_1_results.rds")
 print(paste("done with rf model_1 - ", Sys.time()) )
 
 
@@ -717,8 +717,8 @@ fit_2  <- randomForest(over50K ~ ., data = training_set_final, mtry = model_2$be
 print (paste0("done fitting model_2 with best mtry=", model_2$bestTune$mtry, " - ", Sys.time()))
 
 (performance_stats_2 <- fnPredictOnTest(fit_2, training_set_final, test_set_final, "rf_model_2"))
-saveRDS(model_2, "rda/rf_model_2.rda")
-saveRDS(model_2$results, "rda/rf_model_2_results.rda")
+saveRDS(model_2, "rda/rf_model_2.rds")
+saveRDS(model_2$results, "rda/rf_model_2_results.rds")
 print(paste("done with rf model_2 - ", Sys.time()) )
 
 
@@ -735,11 +735,11 @@ roc_predictions_2 <- prediction(rf_model_2_predictions[, positive_class], test_s
 roc_performance_1 <- performance(roc_predictions_1, "tpr", "fpr")
 roc_performance_2 <- performance(roc_predictions_2, "tpr", "fpr")
 
-saveRDS(roc_predictions_1,"rda/roc_predictions_1.rda")
-saveRDS(roc_predictions_2,"rda/roc_predictions_2.rda")
+saveRDS(roc_predictions_1,"rda/roc_predictions_1.rds")
+saveRDS(roc_predictions_2,"rda/roc_predictions_2.rds")
 
-saveRDS(roc_performance_1,"rda/roc_performance_1.rda")
-saveRDS(roc_performance_2,"rda/roc_performance_2.rda")
+saveRDS(roc_performance_1,"rda/roc_performance_1.rds")
+saveRDS(roc_performance_2,"rda/roc_performance_2.rds")
 print(paste("done calculating ROC info for rf models 1 & 2  - ", Sys.time()) )
 
 ################################################################
@@ -767,8 +767,8 @@ print(paste("done calculating ROC info for rf models 1 & 2  - ", Sys.time()) )
     (performance_stats_3 <- fnPredictOnTest(fit_3, training_set_final, test_set_final, "rf_model_3"))
     print(paste("done fitting rf model_3 - ", Sys.time()) )
     
-    saveRDS(model_3, "rda/rf_model_3.rda")
-    saveRDS(performance_stats_3, "rda/rf_model_3_results.rda")
+    saveRDS(model_3, "rda/rf_model_3.rds")
+    saveRDS(performance_stats_3, "rda/rf_model_3_results.rds")
     print(paste("done with rf model_3 - ", Sys.time()) )
     print(paste("all models completed - ", Sys.time()) )
 
@@ -790,8 +790,8 @@ row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)"
 #row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)", "rf_model.2 (find best mtry)")
 perf_stats
 
-saveRDS(perf_stats, "rda/test_performance_stats_final.rda")
-#saveRDS(perf_stats, "rda/test_performance_stats.rda")
+saveRDS(perf_stats, "rda/test_performance_stats_final.rds")
+#saveRDS(perf_stats, "rda/test_performance_stats.rds")
 print(paste("done with performance stats - ", Sys.time()) )
 
 #####################################################################
@@ -812,8 +812,8 @@ print(paste("FITTING FINAL MODEL ON VALIDATION - ", Sys.time()) )
 predict_final <- predict(fit_2, adult_income_validation, type="class")
 (confusionMatrix_final  <- confusionMatrix(predict_final,  adult_income_validation[, "over50K"] ))
 
-saveRDS(predict_final, "rda/predictions_final.rda")
-saveRDS(confusionMatrix_final, "rda/confusionMatrix_final.rda")
+saveRDS(predict_final, "rda/predictions_final.rds")
+saveRDS(confusionMatrix_final, "rda/confusionMatrix_final.rds")
 print(paste("DONE FITTING FINAL MODEL ON VALIDATION - ", Sys.time()) )
 
 #####################################################################
@@ -826,7 +826,7 @@ feature_importance <- importance(fit_2, type = 1) %>%  as.data.frame() %>% arran
 row_names <- row.names(feature_importance)
 row.names(feature_importance) <- NULL
 feature_importance <- data.frame(Feature=row_names) %>% cbind(feature_importance) %>% mutate(Feature=factor(Feature, levels = Feature))
-saveRDS(feature_importance, "rda/important_features.rda")
+saveRDS(feature_importance, "rda/important_features.rds")
 print(paste("done extracting important variables - ", Sys.time()) )
 print(paste("DONE!! - ", Sys.time()) )
 print("==========================================================")

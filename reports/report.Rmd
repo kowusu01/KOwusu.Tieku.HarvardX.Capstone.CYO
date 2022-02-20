@@ -67,19 +67,19 @@ output: pdf_document
 
   #1. load datasets
   # this is tne original training dataset
-  adult_income_train <- readRDS( file.path( rda_path, "adult_income_train.rda"))
+  adult_income_train <- readRDS( file.path( rda_path, "adult_income_train.rds"))
   
   ## the original validation set
-  adult_income_validation  <- readRDS(file.path( rda_path, "adult_income_validation.rda"))
+  adult_income_validation  <- readRDS(file.path( rda_path, "adult_income_validation.rds"))
   
   # this is the engineered for visualization
-  adult_income <- readRDS(file.path( rda_path, "adult_income.rda"))
+  adult_income <- readRDS(file.path( rda_path, "adult_income.rds"))
   
   # read the final dataset used for training after splitting
-  training_set_final <- readRDS(file.path( rda_path, "training_set_final.rda"))
+  training_set_final <- readRDS(file.path( rda_path, "training_set_final.rds"))
   
   # the test (holdout) set
-  test_set_final <- readRDS(file.path( rda_path, "test_set_final.rda"))
+  test_set_final <- readRDS(file.path( rda_path, "test_set_final.rds"))
   
   
   
@@ -87,36 +87,36 @@ output: pdf_document
   # knn results
   ########################################################
   #load knn objects for report
-  knn_model_1_results <- readRDS(file.path( rda_path, "knn_model_1_cv_results.rda"))
-  knn_model_2_results <- readRDS(file.path( rda_path, "knn_model_2_cv_results.rda"))
+  knn_model_1_results <- readRDS(file.path( rda_path, "knn_model_1_cv_results.rds"))
+  knn_model_2_results <- readRDS(file.path( rda_path, "knn_model_2_cv_results.rds"))
   
-  knn_confusionMatrix_1 <- readRDS(file.path( rda_path, "knn_model_1_confusionMatrix.rda"))
-  knn_confusionMatrix_2 <- readRDS(file.path( rda_path, "knn_model_2_confusionMatrix.rda"))
+  knn_confusionMatrix_1 <- readRDS(file.path( rda_path, "knn_model_1_confusionMatrix.rds"))
+  knn_confusionMatrix_2 <- readRDS(file.path( rda_path, "knn_model_2_confusionMatrix.rds"))
   
-  knn_confusionMatrix_1_tidy <- readRDS(file.path( rda_path, "knn_model_1_confusionMatrix_tidy.rda"))
-  knn_confusionMatrix_2_tidy <- readRDS(file.path( rda_path, "knn_model_2_confusionMatrix_tidy.rda"))
+  knn_confusionMatrix_1_tidy <- readRDS(file.path( rda_path, "knn_model_1_confusionMatrix_tidy.rds"))
+  knn_confusionMatrix_2_tidy <- readRDS(file.path( rda_path, "knn_model_2_confusionMatrix_tidy.rds"))
   
   
   ###############################################################################
   #load randomForest objects for report
-  rf_model_1_results <- readRDS(file.path( rda_path, "rf_model_1_results.rda"))
-  rf_model_1_cm    <- readRDS(file.path( rda_path, "rf_model_1_confusionMatrix.rda"))
+  rf_model_1_results <- readRDS(file.path( rda_path, "rf_model_1_results.rds"))
+  rf_model_1_cm    <- readRDS(file.path( rda_path, "rf_model_1_confusionMatrix.rds"))
   
-  rf_model_2_results <- readRDS(file.path( rda_path, "rf_model_2_results.rda"))
+  rf_model_2_results <- readRDS(file.path( rda_path, "rf_model_2_results.rds"))
   
-  rf_model_3 <- readRDS(file.path( rda_path, "rf_model_3.rda"))
-  rf_model_3_results <- readRDS(file.path( rda_path, "rf_model_3_results.rda"))
+  rf_model_3 <- readRDS(file.path( rda_path, "rf_model_3.rds"))
+  rf_model_3_results <- readRDS(file.path( rda_path, "rf_model_3_results.rds"))
   
-  roc_predictions_1 <- readRDS(file.path( rda_path, "roc_predictions_1.rda"))
-  roc_predictions_2 <- readRDS(file.path( rda_path, "roc_predictions_2.rda"))
+  roc_predictions_1 <- readRDS(file.path( rda_path, "roc_predictions_1.rds"))
+  roc_predictions_2 <- readRDS(file.path( rda_path, "roc_predictions_2.rds"))
 
-  roc_performance_1 <- readRDS(file.path( rda_path, "roc_performance_1.rda"))
-  roc_performance_2 <- readRDS(file.path( rda_path, "roc_performance_2.rda"))
+  roc_performance_1 <- readRDS(file.path( rda_path, "roc_performance_1.rds"))
+  roc_performance_2 <- readRDS(file.path( rda_path, "roc_performance_2.rds"))
   
   # load final model performace stats
-  test_performance_stats <- readRDS(file.path( rda_path, "test_performance_stats_final.rda")) 
-  confusionMatrix_final    <- readRDS(file.path( rda_path, "confusionMatrix_final.rda"))
-  feature_importance <- readRDS(file.path( rda_path, "important_features.rda"))
+  test_performance_stats <- readRDS(file.path( rda_path, "test_performance_stats_final.rds")) 
+  confusionMatrix_final    <- readRDS(file.path( rda_path, "confusionMatrix_final.rds"))
+  feature_importance <- readRDS(file.path( rda_path, "important_features.rds"))
   
 
 ```
@@ -1034,7 +1034,9 @@ The training model was then used to fit a model on the entire training set, and 
     row_spec(which.max(rf_model_1_results$ROC), bold = T, color = "red") 
 
 ```
-  
+
+\newpage
+Confusion matrix for randomForest model on the test set.  
 ```{r rf_test_confusionMatrix_model_1} 
   rf_model_1_cm
  
@@ -1050,9 +1052,8 @@ Overall, without any tuning, the model performance is pretty good; Sensitivity a
 
 #### RandomForest Model 2. Attempt to tune mtry paramaters. 
 With this model, the same sample (5K observations from the training set) with the same cross validation were used in an attempt to tune mtry. From model 1, the best mtry was ```r rf_model_1_results$mtry[which.max(rf_model_1_results$ROC)] ``` . The idea was to expand the around the mtry obtained from model 1 and  see if there is a better mtry. With this approach, the best cross validation ROC for model 2 is achieved with mtry = ```r rf_model_2_results$mtry[which.max(rf_model_2_results$ROC)]```.  
->>>>>>> Stashed changes
 
-
+\newpage
 
 ```{r rf_model_2_train, caption="train method - model 2", echo=T, eval=F}
 # model 2 - train an rf model with cross validation and with different values 
@@ -1083,7 +1084,7 @@ fnTrainRandomforest_Tune_mtry <- function(train_sample){
 
 The following shows the cross validation results for model 2. Even though the best mtry from model 2 is different from the default one selected by caret in model 1, model 2 did not result in any improvement over model 1; ROC is still at 90% with both sensitivity and specificity remaining the same. In fact, the ROC curves for both models look identical.
 
-```{r, roc_curves_models_1_and_2}
+```{r, roc_curves_models_1_and_2, fig.height=4}
 
   auc_1_value <- (performance(roc_predictions_1, "auc"))@y.values %>% as.numeric
   auc_2_value <- (performance(roc_predictions_2, "auc"))@y.values %>% as.numeric
