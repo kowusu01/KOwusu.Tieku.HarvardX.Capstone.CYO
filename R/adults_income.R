@@ -790,7 +790,7 @@ row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)"
 #row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)", "rf_model.2 (find best mtry)")
 perf_stats
 
-saveRDS(perf_stats, "rda/rf_test_performance_stats.rda")
+saveRDS(perf_stats, "rda/test_performance_stats_final.rda")
 print(paste("done with performance stats - ", Sys.time()) )
 
 #####################################################################

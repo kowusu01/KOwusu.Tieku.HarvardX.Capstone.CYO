@@ -35,8 +35,6 @@ output: pdf_document
   # for ROC curves  
   if(!require(ROCR)) install.packages("ROCR", repos = "http://cran.us.r-project.org")
 
-
-  
   library(dplyr)
   library(ggplot2)
   library(broom)
@@ -84,26 +82,6 @@ output: pdf_document
   test_set_final <- readRDS(file.path( rda_path, "test_set_final.rda"))
   
   
-  ###############################################################################
-  #load randomForest objects for report
-  rf_model_1_results <- readRDS(file.path( rda_path, "rf_model_1_results.rda"))
-  rf_model_1_cm    <- readRDS(file.path( rda_path, "rf_model_1_confusionMatrix.rda"))
-  
-  rf_model_2_results <- readRDS(file.path( rda_path, "rf_model_2_results.rda"))
-  
-  rf_model_3 <- readRDS(file.path( rda_path, "rf_model_3.rda"))
-  rf_model_3_results <- readRDS(file.path( rda_path, "rf_model_3_results.rda"))
-  
-  rf_test_performance_stats <- readRDS(file.path( rda_path, "rf_test_performance_stats.rda")) 
-  
-  confusionMatrix_final    <- readRDS(file.path( rda_path, "confusionMatrix_final.rda"))
-  feature_importance <- readRDS(file.path( rda_path, "important_features.rda"))
-  
-  roc_predictions_1 <- readRDS(file.path( rda_path, "roc_predictions_1.rda"))
-  roc_predictions_2 <- readRDS(file.path( rda_path, "roc_predictions_2.rda"))
-
-  roc_performance_1 <- readRDS(file.path( rda_path, "roc_performance_1.rda"))
-  roc_performance_2 <- readRDS(file.path( rda_path, "roc_performance_2.rda"))
   
   ########################################################
   # knn results
@@ -117,6 +95,28 @@ output: pdf_document
   
   knn_confusionMatrix_1_tidy <- readRDS(file.path( rda_path, "knn_model_1_confusionMatrix_tidy.rda"))
   knn_confusionMatrix_2_tidy <- readRDS(file.path( rda_path, "knn_model_2_confusionMatrix_tidy.rda"))
+  
+  
+  ###############################################################################
+  #load randomForest objects for report
+  rf_model_1_results <- readRDS(file.path( rda_path, "rf_model_1_results.rda"))
+  rf_model_1_cm    <- readRDS(file.path( rda_path, "rf_model_1_confusionMatrix.rda"))
+  
+  rf_model_2_results <- readRDS(file.path( rda_path, "rf_model_2_results.rda"))
+  
+  rf_model_3 <- readRDS(file.path( rda_path, "rf_model_3.rda"))
+  rf_model_3_results <- readRDS(file.path( rda_path, "rf_model_3_results.rda"))
+  
+  roc_predictions_1 <- readRDS(file.path( rda_path, "roc_predictions_1.rda"))
+  roc_predictions_2 <- readRDS(file.path( rda_path, "roc_predictions_2.rda"))
+
+  roc_performance_1 <- readRDS(file.path( rda_path, "roc_performance_1.rda"))
+  roc_performance_2 <- readRDS(file.path( rda_path, "roc_performance_2.rda"))
+  
+  # load final model performace stats
+  test_performance_stats <- readRDS(file.path( rda_path, "test_performance_stats_final.rda")) 
+  confusionMatrix_final    <- readRDS(file.path( rda_path, "confusionMatrix_final.rda"))
+  feature_importance <- readRDS(file.path( rda_path, "important_features.rda"))
   
 
 ```
@@ -1139,9 +1139,9 @@ The plot below shows the values of Kappa across different values for nodesize in
 ```
 Models 3 suggests the number ```r model_3_best_nodesize``` as an ideal value for node size. The following table shows the performance statistics for all three models fitted on the test set, including the best model from knn. 
  
- ```{r rf_tab_final_perf_stats, caption="randomForst model performance on Test Set"}
+ ```{r rf_tab_final_perf_stats, caption="model performance stats on test_set"}
  
- rf_test_performance_stats %>% 
+ test_performance_stats %>% 
     kbl(booktabs=T, caption="Model performance on Test Set") %>%
       kable_styling(latex_options = c("striped", "hold_position", "scale_down"))%>% 
       row_spec(4, bold = T, color = "red") 
@@ -1213,15 +1213,16 @@ R: version 4.1.2 (2021-11-01)
 
 Note:   
 
-- This project was developed and tested in Windows. It has been tested under __Ubuntu 18.04.3 LTS__ and __Ubuntu 20.04.2 LTS__ and the script ran successfully. It has not been tested under any other operating system.  
+- This project was developed and tested in Windows.  It has not been tested under any other operating system.  
 - RStudio is not required to execute the script.  
 
 To execute the script without RStudio:  
 
-- create a root folder and name it e.g. base  
-- create a subfolder R under the base folder and copy the main script ( __adults_income.R__ ) to that folder  
+- create a root folder and name it e.g. _base_  
+- create a subfolder called _R_ under the base folder and copy the main script ( __adults_income.R__ ) to that folder
+- create folders _data_ and _rda_ under the base folder   
 - open a command window with Administrator privileges (right-click Windows Command Prompt icon and select _Run As Administrator_ )  
-- change directory to the root folder  
+- change directory to the root folder you created 
 - issue the following command:  __rscript R/adults_income.R__  
 
 
