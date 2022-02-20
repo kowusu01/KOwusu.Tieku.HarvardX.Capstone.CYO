@@ -227,8 +227,7 @@ __Code to read the data__
 # use wrapr::qc() function to create a list of quoted string for the column headers
 COL_HEADERS <- qc(age, workclass, final_weight, education, education_num,
                   marital_status, occupation, relationship, race, sex,
-                  capital_gain, capital_loss, hours_per_week, native_country,
-                  Income)
+                  capital_gain, capital_loss, hours_per_week, native_country, Income)
 
 # read training and test datasets into memory
 adult_income_train <- read.csv(TRAINING_DATA_PATH, col.names = COL_HEADERS)
@@ -236,7 +235,8 @@ adult_income_validation  <- read.csv(VALIDATION_DATA_PATH, col.names = COL_HEADE
 
 # trim all character columns
 adult_income_train <- adult_income_train %>% mutate(across (where(is.character), str_trim))
-adult_income_validation  <- adult_income_validation %>% mutate(across (where(is.character), str_trim))
+adult_income_validation  <- adult_income_validation %>% 
+  mutate(across (where(is.character), str_trim))
 
 
 ```
@@ -269,7 +269,7 @@ The data contains 15 columns;  the _Income_ column is the response variable with
 Although the data for this analysis has previously been cleaned by the team that made it available to UCI, a few things had to be checked to make sure the data is ready to be transformed and used in an analysis.
   
 __1. Verify correct number of records read__.
-Based on the documentation in the _adult.names_ documentation, there are 32561 records in the training set.
+Based on the documentation in the _adult.names_, there are 32561 records in the training set.
 
 __2. Check for invalid/missing data (NAs, invalid zeros for age, etc )__. Verify the presence of NA in all columns. 
 No NAs (null values) are found in both train and test sets. However, some of the categorical columns have questions mark (?) as values. Again, according to the documentation, these were missing values; the NAs (null values) had been replaced with questions marks.
