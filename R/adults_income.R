@@ -9,10 +9,10 @@
 ## Using the cross validation and number of models
 ## it takes about 4hrs to run from begin to end.
 ##
-## It creates all the .rds files needed for the 
+## It creates all the .rda files needed for the 
 ## report. 
 ##
-## updated 2/20/2022 @ 2:15pm
+## updated 2/20/2022 @ 3:30pm
 ###################################################
 
 set.seed(2022)
@@ -114,8 +114,8 @@ adult_income_validation  <- read.csv(VALIDATION_DATA_PATH, col.names = COL_HEADE
 adult_income_train <- adult_income_train %>% mutate(across (where(is.character), str_trim))
 adult_income_validation <- adult_income_validation %>% mutate(across (where(is.character), str_trim))
 
-saveRDS(adult_income_train, "rda/adult_income_train.rds")
-saveRDS(adult_income_validation, "rda/adult_income_validation.rds")
+saveRDS(adult_income_train, "rda/adult_income_train.rda")
+saveRDS(adult_income_validation, "rda/adult_income_validation.rda")
 
 
 
@@ -158,7 +158,7 @@ fnShowUniqueValues <- function(myFeature){
 
 ################################################################################
 # function create a new column based on capital_gain and capital_loss
-# 
+# It adds a value  to indicate whether an individual reported gain or loss.
 ################################################################################
 fnCreateNewCapitalGainLossColumn <- function(my_dataset){
   
@@ -170,7 +170,7 @@ fnCreateNewCapitalGainLossColumn <- function(my_dataset){
   
 }
 
-
+# function to treat some categorical variables values 
 fnRenameSomeCategoricalValues <- function(my_dataset){
   #1. update some categorical values
   #   remove upadte all ? marks values to Unspecified
@@ -248,7 +248,8 @@ fnManualTransformations <- function(my_dataset){
   my_dataset
 }
 
-
+# a function to create caret dummy variable preprocessing object
+# once created, it can be applied to a dataset to tranform it
 fnCreateCaretDummyVarsPreproc <- function(my_dataset) {
   
   # for some reason, caret wants the response var to be an int
@@ -261,22 +262,25 @@ fnCreateCaretDummyVarsPreproc <- function(my_dataset) {
   caret_dummy_vars_preprocessor
 }
 
+# given a caret dummy variable preprocessor object, 
+## apply it to a dataset to create the final dummy variables in the dataset
 fnApplyCaretDummyVarsPreproc <- function(my_dataset, caret_dummy_vars_preprocessor) {
-  
   income_col <- my_dataset %>% select("Income")
-  
   my_dataset <-  predict(caret_dummy_vars_preprocessor, newdata = my_dataset) %>% as.data.frame()
   
   # the final result from predict does not include the response var, add it back
   income_col %>% cbind(my_dataset)
 }
 
-
+# a function to create caret scaling preprocessing object
+# once created, it can be applied to a dataset to tranform it
 fnCreateCaretScalePreproc <- function(my_dataset){
   # scale everything except the response var
   my_dataset[, -1] %>% preProcess(method = c("center", "scale"))
 }
 
+
+# a function to apply caret scaling preprocessing to a dataset
 fnApplyCaretScalePreproc <- function(my_dataset, caret_scale_preprocessor){
   response_col <- my_dataset %>% select("over50K")
   scaled_features <- predict(caret_scale_preprocessor, my_dataset[, -1]) %>% as.data.frame()
@@ -313,7 +317,7 @@ adult_income <- adult_income_train
 adult_income <- fnCreateNewCapitalGainLossColumn(adult_income)
 
 
-## work class
+# work class
 adult_income <- adult_income %>% 
   mutate(workclass_collapsed = fct_collapse(workclass,
                                             "Unspecified" = "?",
@@ -338,7 +342,7 @@ adult_income <- adult_income %>% mutate_if(is.character, factor)
 
 
 
-## add age_group column
+# add age_group column
 adult_income <- adult_income %>% mutate(age_group = if_else(age<=20,"<=20", 
                                                             if_else(age<=25, "<=25",
                                                                     if_else(age<=30, "<=30",
@@ -351,7 +355,8 @@ adult_income <- adult_income %>% mutate(age_group = if_else(age<=20,"<=20",
                                                                                                                             if_else(age<=65, "<=65","65+"))))))))))) 
 
 
-## work class
+# work class - combine some categories into  more broader categories 
+# to see to there are patterns
 adult_income <- adult_income %>% 
   mutate(workclass_collapsed = fct_collapse(workclass,
                                             "Unspecified" = "?",
@@ -378,9 +383,8 @@ adult_income <- adult_income %>% mutate(education_collapsed = fct_collapse(educa
 
 
 #######################################################################
-## Occupation
-## Military Specific Occupations - excluded since it has only  9 records
-#adult_income <- adult_income %>% filter(occupation != "Armed-Forces")
+# Occupation - create new occupation categories based on 
+# US Bureau of Labor Statistics Occupational Classification (SOC)
 adult_income <- adult_income %>% mutate(occupation_collapsed = fct_collapse(occupation,
                                                                             Unspecified = "?",
                                                                             Management_business_science_and_arts = c("Exec-managerial","Prof-specialty"),
@@ -392,11 +396,11 @@ adult_income <- adult_income %>% mutate(occupation_collapsed = fct_collapse(occu
 
 
 
-
+# create capital gain groups for visualization
 adult_income <- adult_income %>% mutate(capital_gain_level = if_else(capital_gain==0,"none", 
                                                                      if_else(capital_gain<=10000, "<=10K",
                                                                              if_else(capital_gain<=20000, "<=20K",">20K"))))
-
+# create capital loss groups for visualization
 adult_income <- adult_income %>% mutate(capital_loss_level = if_else(capital_loss==0,"none", 
                                                                      if_else(capital_loss<=1000, "<=1K",
                                                                              if_else(capital_loss<=2000, "<=2K",
@@ -406,8 +410,7 @@ adult_income <- adult_income %>% mutate(capital_gain_level = factor(capital_gain
 adult_income <- adult_income %>% mutate(capital_loss_level = factor(capital_loss_level, levels = c("none", "<=1K", "<=2K", "<=3K", ">3K")))
 
 
-#adult_income <- fnCreateNewCapitalGainLossColumn(adult_income)
-saveRDS(adult_income, "rda/adult_income.rds")
+saveRDS(adult_income, "rda/adult_income.rda")
 
 
 
@@ -433,7 +436,7 @@ test_index <- createDataPartition(y = adult_income_train$Income, times = 1, p = 
 train_set <- adult_income_train[-test_index,]
 test_set  <- adult_income_train[test_index,]
 
-saveRDS(test_set, "rda/test_set.rds")
+saveRDS(test_set, "rda/test_set.rda")
 
 
 ###############################################################################
@@ -470,7 +473,7 @@ test_set_final     <-  fnApplyCaretScalePreproc(test_set_final, caret_scale_prep
 ################################################################################
 
 # 1. rename some categorical values
-#adult_income_validation <- readRDS("rda/adult_income_validation.rds")
+#adult_income_validation <- readRDS("rda/adult_income_validation.rda")
 adult_income_validation <- adult_income_validation %>% mutate_at(c("Income"), ~ str_replace(.x, "\\.", ""))
 
 adult_income_validation     <- fnManualTransformations(adult_income_validation)
@@ -486,9 +489,9 @@ adult_income_validation     <-  fnApplyCaretScalePreproc(adult_income_validation
 
 glimpse(adult_income_validation)
 
-saveRDS(training_set_final, "rda/training_set_final.rds") 
-saveRDS(test_set_final, "rda/test_set_final.rds") 
-saveRDS(adult_income_validation, "rda/adult_income_validation_final.rds") 
+saveRDS(training_set_final, "rda/training_set_final.rda") 
+saveRDS(test_set_final, "rda/test_set_final.rda") 
+saveRDS(adult_income_validation, "rda/adult_income_validation_final.rda") 
 
 ################################################################################
 ## END PREPROCESSING
@@ -501,14 +504,6 @@ saveRDS(adult_income_validation, "rda/adult_income_validation_final.rds")
 
 index <- sample(nrow(training_set_final), SAMPLE.SIZE)
 train_sample <- training_set_final[index, ]
-
-#train_x <- training_set_final %>% select(-c("over50K")) %>% as.matrix()
-#test_x <- test_set_final %>% select(-c("over50K")) %>% as.matrix()
-
-#train_y <- training_set_final[, "over50K"]
-#test_y <- test_set_final[, "over50K"] 
-
-
 
 ################################################################################
 ## MODEL SUPPORT FUNCTIONS
@@ -595,9 +590,9 @@ fnPredictOnTest <- function(rf_fit, train_set, test_set, model_name){
   pred_test   <- predict(rf_fit, test_set, type="class")
   confusionMatrix_test  <- confusionMatrix(pred_test,  test_set[, "over50K"] )
   
-  saveRDS(confusionMatrix_test, paste0("rda/", model_name, "_confusionMatrix.rds"))
-  saveRDS(fnTidyCMStats(confusionMatrix_test), paste0("rda/", model_name, "_confusionMatrix_tidy.rds"))
-  saveRDS(pred_test, paste0("rda/", model_name, "_predictions.rds"))
+  saveRDS(confusionMatrix_test, paste0("rda/", model_name, "_confusionMatrix.rda"))
+  saveRDS(fnTidyCMStats(confusionMatrix_test), paste0("rda/", model_name, "_confusionMatrix_tidy.rda"))
+  saveRDS(pred_test, paste0("rda/", model_name, "_predictions.rda"))
   
   data.frame(test.accuracy = confusionMatrix_test$overall["Accuracy"],
              test.kappa = confusionMatrix_test$overall["Kappa"],
@@ -640,8 +635,8 @@ print(paste("done training knn model 2 - ", Sys.time()) )
 #knn_model_1
 #knn_model_2
 
-saveRDS(knn_model_1$results, "rda/knn_model_1_cv_results.rds")
-saveRDS(knn_model_2$results, "rda/knn_model_2_cv_results.rds")
+saveRDS(knn_model_1$results, "rda/knn_model_1_cv_results.rda")
+saveRDS(knn_model_2$results, "rda/knn_model_2_cv_results.rda")
 
 #plot(knn_model_1)
 #dev.new()
@@ -656,16 +651,16 @@ print(paste("done fitting knn models on entire training set ", Sys.time()) )
 knn_pred_1 <- predict(knn_fit_1, newdata=test_set_final, type="class")
 knn_pred_2 <- predict(knn_fit_2, newdata=test_set_final, type="class")
 
-saveRDS(knn_pred_1, "rda/knn_model_1_predictions.rds")
-saveRDS(knn_pred_2, "rda/knn_model_2_predictions.rds")
+saveRDS(knn_pred_1, "rda/knn_model_1_predictions.rda")
+saveRDS(knn_pred_2, "rda/knn_model_2_predictions.rda")
 
 knn_confusionMatrix_1 <- confusionMatrix(knn_pred_1, test_set_final$over50K)
 knn_confusionMatrix_2 <- confusionMatrix(knn_pred_2, test_set_final$over50K)
-saveRDS(knn_confusionMatrix_1, "rda/knn_model_1_confusionMatrix.rds")
-saveRDS(knn_confusionMatrix_2, "rda/knn_model_2_confusionMatrix.rds")
+saveRDS(knn_confusionMatrix_1, "rda/knn_model_1_confusionMatrix.rda")
+saveRDS(knn_confusionMatrix_2, "rda/knn_model_2_confusionMatrix.rda")
 
-saveRDS(fnTidyCMStats(knn_confusionMatrix_1), "rda/knn_model_1_confusionMatrix_tidy.rds")
-saveRDS(fnTidyCMStats(knn_confusionMatrix_2), "rda/knn_model_2_confusionMatrix_tidy.rds")
+saveRDS(fnTidyCMStats(knn_confusionMatrix_1), "rda/knn_model_1_confusionMatrix_tidy.rda")
+saveRDS(fnTidyCMStats(knn_confusionMatrix_2), "rda/knn_model_2_confusionMatrix_tidy.rda")
 
 paste0("knn model 1: k=", knn_fit_1$k, ", Accuracy=", 
        round(knn_confusionMatrix_1$overall["Accuracy"], 2), ", Kappa=", 
@@ -701,8 +696,8 @@ print (paste0("done fitting rf model_1 with best mtry=", model_1$bestTune$mtry, 
 (performance_stats_1 <- fnPredictOnTest(fit_1, training_set_final, test_set_final, "rf_model_1"))
 #dev.new()
 #plot(model_1)
-saveRDS(model_1, "rda/rf_model_1.rds")
-saveRDS(model_1$results, "rda/rf_model_1_results.rds")
+saveRDS(model_1, "rda/rf_model_1.rda")
+saveRDS(model_1$results, "rda/rf_model_1_results.rda")
 print(paste("done with rf model_1 - ", Sys.time()) )
 
 
@@ -717,8 +712,8 @@ fit_2  <- randomForest(over50K ~ ., data = training_set_final, mtry = model_2$be
 print (paste0("done fitting model_2 with best mtry=", model_2$bestTune$mtry, " - ", Sys.time()))
 
 (performance_stats_2 <- fnPredictOnTest(fit_2, training_set_final, test_set_final, "rf_model_2"))
-saveRDS(model_2, "rda/rf_model_2.rds")
-saveRDS(model_2$results, "rda/rf_model_2_results.rds")
+saveRDS(model_2, "rda/rf_model_2.rda")
+saveRDS(model_2$results, "rda/rf_model_2_results.rda")
 print(paste("done with rf model_2 - ", Sys.time()) )
 
 
@@ -735,20 +730,19 @@ roc_predictions_2 <- prediction(rf_model_2_predictions[, positive_class], test_s
 roc_performance_1 <- performance(roc_predictions_1, "tpr", "fpr")
 roc_performance_2 <- performance(roc_predictions_2, "tpr", "fpr")
 
-saveRDS(roc_predictions_1,"rda/roc_predictions_1.rds")
-saveRDS(roc_predictions_2,"rda/roc_predictions_2.rds")
+saveRDS(roc_predictions_1,"rda/roc_predictions_1.rda")
+saveRDS(roc_predictions_2,"rda/roc_predictions_2.rda")
 
-saveRDS(roc_performance_1,"rda/roc_performance_1.rds")
-saveRDS(roc_performance_2,"rda/roc_performance_2.rds")
+saveRDS(roc_performance_1,"rda/roc_performance_1.rda")
+saveRDS(roc_performance_2,"rda/roc_performance_2.rda")
 print(paste("done calculating ROC info for rf models 1 & 2  - ", Sys.time()) )
 
 ################################################################
-# randomForest forest model 3 is left out, 
+# randomForest forest model 3 may be left out, 
 # takes too long to execute and not much improvement
-# You can uncomment it out and test it out.
 #
 # ##############################################################
-# 3. setting mtry constant to the value obtained from step 2, 
+# 3. setting mtry constant to the value obtained from model 2, 
 #    attempt to tune nodesize
 
     print(paste("training rf model_3 - ", Sys.time()) )
@@ -767,8 +761,8 @@ print(paste("done calculating ROC info for rf models 1 & 2  - ", Sys.time()) )
     (performance_stats_3 <- fnPredictOnTest(fit_3, training_set_final, test_set_final, "rf_model_3"))
     print(paste("done fitting rf model_3 - ", Sys.time()) )
     
-    saveRDS(model_3, "rda/rf_model_3.rds")
-    saveRDS(performance_stats_3, "rda/rf_model_3_results.rds")
+    saveRDS(model_3, "rda/rf_model_3.rda")
+    saveRDS(performance_stats_3, "rda/rf_model_3_results.rda")
     print(paste("done with rf model_3 - ", Sys.time()) )
     print(paste("all models completed - ", Sys.time()) )
 
@@ -790,8 +784,8 @@ row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)"
 #row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)", "rf_model.2 (find best mtry)")
 perf_stats
 
-saveRDS(perf_stats, "rda/test_performance_stats_final.rds")
-#saveRDS(perf_stats, "rda/test_performance_stats.rds")
+saveRDS(perf_stats, "rda/test_performance_stats_final.rda")
+#saveRDS(perf_stats, "rda/test_performance_stats.rda")
 print(paste("done with performance stats - ", Sys.time()) )
 
 #####################################################################
@@ -812,8 +806,8 @@ print(paste("FITTING FINAL MODEL ON VALIDATION - ", Sys.time()) )
 predict_final <- predict(fit_2, adult_income_validation, type="class")
 (confusionMatrix_final  <- confusionMatrix(predict_final,  adult_income_validation[, "over50K"] ))
 
-saveRDS(predict_final, "rda/predictions_final.rds")
-saveRDS(confusionMatrix_final, "rda/confusionMatrix_final.rds")
+saveRDS(predict_final, "rda/predictions_final.rda")
+saveRDS(confusionMatrix_final, "rda/confusionMatrix_final.rda")
 print(paste("DONE FITTING FINAL MODEL ON VALIDATION - ", Sys.time()) )
 
 #####################################################################
@@ -826,7 +820,7 @@ feature_importance <- importance(fit_2, type = 1) %>%  as.data.frame() %>% arran
 row_names <- row.names(feature_importance)
 row.names(feature_importance) <- NULL
 feature_importance <- data.frame(Feature=row_names) %>% cbind(feature_importance) %>% mutate(Feature=factor(Feature, levels = Feature))
-saveRDS(feature_importance, "rda/important_features.rds")
+saveRDS(feature_importance, "rda/important_features.rda")
 print(paste("done extracting important variables - ", Sys.time()) )
 print(paste("DONE!! - ", Sys.time()) )
 print("==========================================================")
