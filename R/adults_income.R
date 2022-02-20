@@ -12,7 +12,6 @@
 ## It creates all the .rda files needed for the 
 ## report. 
 ##
-## updated 2/20/2022 @ 3:30pm
 ###################################################
 
 set.seed(2022)

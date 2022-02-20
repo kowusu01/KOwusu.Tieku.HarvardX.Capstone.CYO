@@ -2,7 +2,7 @@
 title: "HarvardX PH125.9x - Capstone Project - CYO"
 subtitle: "Predicting Income Using Knn and randomForest"
 author: "Kwaku Owusu-Tieku (kowusu01@gmail.com)"
-date: "2/9/2022"
+date: "2/20/2022"
 output: pdf_document
 ---
 
@@ -481,7 +481,7 @@ When the categories are collapsed into more broader categories with fewer levels
   adult_income %>% 
     ggplot(aes(education_collapsed, fill=education_collapsed)) +
       scale_fill_brewer(palette = "Set2")   +
-      geom_bar() +  ggtitle("Education Distribution - New Categories")  +  
+      geom_bar() +  ggtitle("Education Distribution \n Using more general categories")  +  
       xlab("education") + gray_chart_theme + theme(legend.position = "none") 
  
  
@@ -535,7 +535,7 @@ The SOC defines many categories but the following are the ones used:
   colnames(categories_count) <- c("Category", "Count")
   
   categories_count %>% 
-  kbl(booktabs=T, caption="Occupation by Category - Based on SOC Classifications") %>% 
+  kbl(booktabs=T, caption="Occupation by Category \n Based on SOC Classifications") %>% 
     kable_styling(latex_options = c("striped", "hold_position")) %>% 
     kable_styling(full_width = T)  %>% 
     column_spec(0, bold=T)
@@ -543,7 +543,7 @@ The SOC defines many categories but the following are the ones used:
 adult_income %>%
   mutate(occupation_collapsed = occupation_collapsed %>% fct_infreq() %>% fct_rev()) %>%
   ggplot(aes(occupation_collapsed, fill=occupation_collapsed)) +  geom_bar() +  
-  ggtitle("Occupation by Category - Based on SOC Classifications") + xlab("") + 
+  ggtitle("Occupation by Category \n Based on SOC Classifications") + xlab("") + 
   scale_fill_brewer(palette = "Set3")   +
   coord_flip() + theme(legend.position = "none") 
 
@@ -562,7 +562,7 @@ __Income and Age__. One of the questions asked earlier was whether age can indic
   adult_income %>% group_by(age_group) %>% summarise(n=n(), over50K=sum(Income==">50K"), prop = round(over50K/n,3 )) %>% 
     ggplot(aes(x=age_group, y=prop, group=1)) + 
     geom_point(size=4, color= "blue") + 
-    geom_smooth(method = "loess", formula = y ~ x, se=F, size=3, color="orange" ) +
+    geom_smooth(method = "loess", formula = y ~ x, se=F, size=2, color="orange" ) +
     ggtitle("Proportion of >50K earners at different ages") + 
     ylab("Proportion >50K") +
     gray_chart_theme
@@ -597,7 +597,7 @@ However, as the gragh below shows, the proportion of individuals earning >50K is
   ggplot(aes(x=education, y=prop, group = 1)) + 
   ggtitle("Proportion of >50K earners is increasing \n as educational level increases") + ylab("Proportion >50K") +
   geom_point(size=4, color= "blue") + 
-  geom_smooth(method = "loess", formula = y ~ x, se=F, size=3, color="orange" ) +
+  geom_smooth(method = "loess", formula = y ~ x, se=F, size=2, color="orange" ) +
   geom_hline(yintercept = 0.5, linetype="dotted", color="red", size=1)+
   geom_vline(xintercept = 12.5, linetype="dotted", color="red", size=1)+
   minimal_chart_theme + angled_90_x_axis_labels_theme
@@ -616,7 +616,7 @@ It is important to note that the graph above can be generated using _education_n
   summarise(n=n(), over50K=sum(Income==">50K"), prop = round(over50K/n,3 )) %>% 
   ggplot(aes(x=education_num_factor, y=prop, group=1)) + 
     geom_point(size=4, color= "blue") + 
-    geom_smooth(method = "loess", formula = y ~ x, se=F, size=3, color="orange" ) +
+    geom_smooth(method = "loess", formula = y ~ x, se=F, size=2, color="orange" ) +
     geom_hline(yintercept = 0.5, linetype="dotted", color="red", size=1)+
     geom_vline(xintercept = education_num_bachelors +.5, linetype="dotted", color="red", size=1)+
     ggtitle("Proportion of >50K earners at different ages") + 
