@@ -481,7 +481,7 @@ When the categories are collapsed into more broader categories with fewer levels
   adult_income %>% 
     ggplot(aes(education_collapsed, fill=education_collapsed)) +
       scale_fill_brewer(palette = "Set2")   +
-      geom_bar() +  ggtitle("Education Distribution \n Using more general categories")  +  
+      geom_bar() +  ggtitle("Education Distribution using more general categories")  +  
       xlab("education") + gray_chart_theme + theme(legend.position = "none") 
  
  
@@ -1219,10 +1219,11 @@ Note:
 
 To execute the script without RStudio:  
 
-- create a root folder and name it e.g. _base_  
+- create a root folder and name it e.g. _base_
 - create a subfolder called _R_ under the base folder and copy the main script ( __adults_income.R__ ) to that folder
-- create folders _data_ and _rda_ under the base folder   
+- create folders _data_ and _rda_ under the base folder
 - open a command window with Administrator privileges (right-click Windows Command Prompt icon and select _Run As Administrator_ )  
+make sure you are pointing to the correct version of R (min version 4.1.2). Type _R --version_ at the command prompt.
 - change directory to the root folder you created 
 - issue the following command:  __rscript R/adults_income.R__  
 

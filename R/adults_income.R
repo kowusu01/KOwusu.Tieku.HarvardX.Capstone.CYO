@@ -84,7 +84,7 @@ if(!file.exists(VALIDATION_DATA_PATH))
 
 
 #################################################################################
-# attempt download files from my github repo
+# attempt download files from my github repo if things fail
 ################################################################################
 #if(!file.exists(TRAIN_DATA_PATH))
 #  download.file(TRAINING_DATA.GITHUB.URL,   TRAIN_DATA_PATH,  method="curl", mode = "w")
@@ -147,7 +147,7 @@ fnShowUniqueValues <- function(myFeature){
   unique(myFeature)
 }
 
-#adult_income_train %>% select(where(is.character)) %>% sapply(fnShowUniqueValues)
+adult_income_train %>% select(where(is.character)) %>% sapply(fnShowUniqueValues)
 
 
 ###########################################
@@ -820,6 +820,7 @@ row_names <- row.names(feature_importance)
 row.names(feature_importance) <- NULL
 feature_importance <- data.frame(Feature=row_names) %>% cbind(feature_importance) %>% mutate(Feature=factor(Feature, levels = Feature))
 saveRDS(feature_importance, "rda/important_features.rda")
+feature_importance[1:20,]
 print(paste("done extracting important variables - ", Sys.time()) )
 print(paste("DONE!! - ", Sys.time()) )
 print("==========================================================")
