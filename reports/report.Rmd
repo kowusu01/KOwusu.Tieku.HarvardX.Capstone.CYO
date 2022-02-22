@@ -1,6 +1,6 @@
 ---
 title: "HarvardX PH125.9x - Capstone Project - CYO"
-subtitle: "Predicting Income Using Knn and randomForest"
+subtitle: "Classification of Income Using Machine Learning (with KNN and RandomForest)"
 author: "Kwaku Owusu-Tieku (kowusu01@gmail.com)"
 date: "2/20/2022"
 output: pdf_document
@@ -1187,7 +1187,7 @@ The randomForest model ranks the features (variables) used in the classification
     ggplot() +
     geom_segment( aes(x=Feature, y=MeanDecreaseAccuracy, xend=Feature, yend=0) ) +
     geom_point(aes(x=Feature, y=MeanDecreaseAccuracy), size=4, color="#66C2A5") +
-    coord_flip() + xlab("") + ggtitle("Top 20 features in the final model")
+    coord_flip() + xlab("") + ggtitle("Top 20 features in the final model \n in the classification of individual's income ")
 ```
 
 
