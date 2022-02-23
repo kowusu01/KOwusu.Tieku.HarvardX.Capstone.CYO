@@ -1028,7 +1028,7 @@ The training model was then used to fit a model on the entire training set, and 
 ```{r rf_model_1_cross_validation}
 
   rf_model_1_results %>% 
-  kbl(booktabs=T, caption="Cross validation results - model 1")%>%
+  kbl(booktabs=T, caption="Cross validation results - randomForest model 1")%>%
     kable_styling(latex_options = c("striped", "hold_position")) %>% 
     row_spec(0, bold=T) %>% 
     row_spec(which.max(rf_model_1_results$ROC), bold = T, color = "red") 
@@ -1036,7 +1036,7 @@ The training model was then used to fit a model on the entire training set, and 
 ```
 
 \newpage
-Confusion matrix for randomForest model on the test set.  
+Confusion matrix for randomForest model 1 on the test set.  
 ```{r rf_test_confusionMatrix_model_1} 
   rf_model_1_cm
  
@@ -1074,7 +1074,7 @@ fnTrainRandomforest_Tune_mtry <- function(train_sample){
 
 ``` {r rf_cv_results_model_2}
   rf_model_2_results %>% 
-    kbl(booktabs=T, caption="Cross validation results - model 2 finding best mtry") %>%
+    kbl(booktabs=T, caption="Cross validation results - randomForest model 2 (finding best mtry)") %>%
       kable_styling(latex_options = c("striped", "hold_position")) %>% 
       row_spec(0, bold=T) %>% 
       row_spec(which.max(rf_model_2_results$ROC), bold = T, color = "red") 

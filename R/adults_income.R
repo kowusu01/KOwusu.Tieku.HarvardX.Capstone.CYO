@@ -14,7 +14,7 @@
 ##
 ###################################################
 
-set.seed(2022)
+set.seed(2022, sample.kind = "Rounding")
 
 if (!require(tidyverse)) install.packages("tidyverse", repos = "http://cran.us.r-project.org")
 if (!require(caret)) install.packages("caret", repos = "http://cran.us.r-project.org")
