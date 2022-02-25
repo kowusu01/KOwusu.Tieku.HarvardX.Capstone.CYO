@@ -14,7 +14,7 @@
 ##
 ###################################################
 
-set.seed(2022, sample.kind = "Rounding")
+set.seed(2022)
 
 if (!require(tidyverse)) install.packages("tidyverse", repos = "http://cran.us.r-project.org")
 if (!require(caret)) install.packages("caret", repos = "http://cran.us.r-project.org")
@@ -774,9 +774,10 @@ best_knn_model <- data.frame(
                            test.sensitivity = knn_confusionMatrix_1$byClass["Sensitivity"], 
                            test.specificity = knn_confusionMatrix_1$byClass["Specificity"])
 
-perf_stats <- performance_stats_1 %>% 
-    rbind(best_knn_model) %>% 
-    rbind(performance_stats_2) %>%  rbind(performance_stats_3)
+perf_stats <- best_knn_model %>% 
+    rbind(performance_stats_1) %>% 
+    rbind(performance_stats_2) %>% 
+    rbind(performance_stats_3)
    
 
 row.names(perf_stats) <- c("knn_best_model", "rf_model.1 (using caret defaults)", "rf_model.2 (find best mtry)", "rf_model.3 (find best nodesize)")

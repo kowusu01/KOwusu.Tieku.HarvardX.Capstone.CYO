@@ -493,7 +493,7 @@ The _workclass_ variable is more like job sectors, has eight categories and one 
   
       
 __Occupation__. 
-Another import variable is _occupation_, a categorical variable with 15 levels,  one missing (?) category.  
+Another important variable in the dataset is _occupation_, a categorical variable with 15 levels,  one missing (?) category.  
 
 ```{r occupation_original }
 
@@ -570,7 +570,7 @@ __Income and Age__. One of the questions asked earlier was whether age can indic
 ```
 
 
-__Income and education__. It is generally accepted that income level is associated with educational attainment; the higher the educational level, the higher the income. Does the data support this belief? Based on the data, at every educational levels (except graduate and post graduate), the number of individuals earning >50K is lower than those earning >50K. 
+__Income and education__. It is generally accepted that income level is associated with educational attainment; the higher the educational level, the higher the income. Does the data support this belief? Based on the data, at every educational levels (except graduate and post graduate), the number of individuals earning >50K is lower than those earning <=50K. The next three graphs illustrate it.
 
 ```{r, fig.height=4, fig.width=6}
 
@@ -1153,9 +1153,9 @@ Models 3 suggests the number ```r model_3_best_nodesize``` as an ideal value for
 \newpage
 
 #### Final model and final prediction on validation set. 
-From table above, randomForest model 3 ( _rf_model_ ) is the best performing model. Even though the performance between kNN and the last two randomForest models are very close in terms of accuracy, it it clear that randomForest model 3 is a better model using Kappa as a metric. 
+From table above, randomForest model 3 ( _rf_model_ ) is the best performing model. Even though the performance between kNN and the last two randomForest models are very close in terms of accuracy, it is clear that randomForest model 3 is a better model using Kappa as a metric. 
 
-However, the execution time for randomForest model 3 (rf_model_3) was over 2hours (more than the time it took for two kNN models plus the first two randomForest models). Yet, rf_model_3 only offered a small improvement over rf_model_2, Therefore, for the sake of simplicity, I selected randomForest model 2 ( __rf_model_2__ ) as the final model to apply on the validation set. In the code, this corresponds to __fit_2__ (the fitted model based on rf_model_2). The selected model used mtry of __15__.
+However, the execution time for randomForest model 3 (rf_model_3) was over 2hours (more than the time it took for two kNN models plus the first two randomForest models altogether). Yet, rf_model_3 only offered a small improvement over rf_model_2, Therefore, for the sake of simplicity, I selected randomForest model 2 ( __rf_model_2__ ) as the final model to apply on the validation set. In the code, this corresponds to __fit_2__ (the fitted model based on rf_model_2). The selected model used mtry of __15__.
 
 
 ```{r, fitting_final_model,  eval=F, echo=T }
