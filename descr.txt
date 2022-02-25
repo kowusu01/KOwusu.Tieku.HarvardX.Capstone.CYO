@@ -1,0 +1,15 @@
+Capstone CYO submission by Kwaku Owusu-Tieku 
+Email: kowusu01@gmail.com
+
+Files
+1. kowusu01.adults_income.R
+ - This is the main R script file for the machine learning task
+
+2. kowusu01.report.Rmd
+ - This is the report script for the analysis
+
+3. kowusu01.report.pdf
+ - This is the pdf report for the analysis
+
+Github repo
+https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO
