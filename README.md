@@ -1,4 +1,4 @@
-# Classsification of Income using kNN and RandomForest Algorithms
+# Classification of Income using kNN and RandomForest Algorithms
 
 ## KOwusu.Tieku.HarvardX.Capstone.CYO
 
