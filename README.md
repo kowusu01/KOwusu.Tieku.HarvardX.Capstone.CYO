@@ -16,7 +16,7 @@ This project, apples kNN and randomForest to a dataset containing various attrib
 
 The kNN and randomForest algorithms were chosen because they are very easy to train, and they are able handle a wide range data including a mix of categorical and numeric variables and offer good performance. 
 
-[read entire report](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/report.pdf)
+[[read entire report...]](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/report.pdf)
 
 ## The original data
 
@@ -115,5 +115,5 @@ model’s performance is fairly good, an improvement may have been achieved by c
 and using ensemble methods. 
 
 
-[read entire report](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/report.pdf)
+[read entire report...]](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/report.pdf)
 
