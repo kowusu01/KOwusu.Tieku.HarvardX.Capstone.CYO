@@ -16,6 +16,7 @@ This project, apples kNN and randomForest to a dataset containing various attrib
 
 The kNN and randomForest algorithms were chosen because they are very easy to train, and they are able handle a wide range data including a mix of categorical and numeric variables and offer good performance. 
 
+[read entire report](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/report.pdf)
 
 ## The original data
 
@@ -37,32 +38,28 @@ The documentation indicates that the original data was retrieved from the 1994 c
 __Reading the data__   
 A quick peek at the data reveals that there are no column names. However, descriptions in the _adult.names_ file provides useful information in naming the columns.   
    
-      
-![ original data - raw ](images/01-raw-data.PNG)    
+ 
 ![original data - raw](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/images/01-raw-data.PNG?raw=true)
   
-      
-__Code to read the data__
-![R code snippet to read data](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/images/code-to-read-data.PNG?raw=true)
 
 ## Data distribution & trends
 The following shows some of the data distributions and and general properties of the data.
 ![data distribution](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/images/data-distribution.PNG?raw=true)
-
+  
+  
 ![data distribution](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/images/income-and-education.PNG?raw=true)
 
-
+  
 ![data distribution](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/images/income-and-occupation.PNG?raw=true)
 
+  
 ![data distribution](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/images/trend-income-and-education.PNG?raw=true)
-
-
 
 
 ## Machine Learning
 
 ### Approach
-The following approach was used the machine learning section of the project:
+The following approach was used the machine learning section of the project:  
 0. Data partitioning (train/test)
 1. Data Engineering, Transformation & Preprocessing
 2. Training, Optimization & Model Selection
@@ -115,5 +112,8 @@ classification of whether an individual’s income is <=50K or >50K. The top fou
 predicting the outcome are capital_gain_loss, education_num, age, and hour_per_week.
 The project, for the sake of time, focused on two algorithms (kNN and randomForest). Although the final
 model’s performance is fairly good, an improvement may have been achieved by considering more models
-and using ensemble methods. However, the skills acquired through this project is by far the most valuable
-to me.
+and using ensemble methods. 
+
+
+[read entire report](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/report.pdf)
+
