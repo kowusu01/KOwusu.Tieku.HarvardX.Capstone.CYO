@@ -32,7 +32,7 @@ Three main files are provided as part of the dataset.
  
 The _adult.names_ file,  provides very useful information about the data.  The _adult.data_ and _adult.test_ files are the training and test sets. The data had already been split into training and test sets by the contributer(s). The training data contains _32561_ records. The test set contains _16281_ records, about 50% of the training set.  This provides a good amount of data for training while leaving enough for validation. Each record in the datasets represents an observation.   
 
-The documentation indicates that the original data was retrieved from the 1994 census bureau database (http://www.census.gov/ftp/pub/DES/www/welcome.html), so the samples were taken from real dataset. The U.S. population and workfoce have changed dramatically since 1994, so the patterns in this data may be different from when the samples were originally taken. 
+The documentation indicates that the original data was retrieved from the 1994 census bureau database (http://www.census.gov/ftp/pub/DES/www/welcome.html), so the samples were taken from real dataset. The U.S. population and workforce have changed dramatically since 1994, so the patterns in this data may be different from when the samples were originally taken. 
   
 
 __Reading the data__   
