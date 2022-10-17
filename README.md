@@ -115,5 +115,5 @@ model’s performance is fairly good, an improvement may have been achieved by c
 and using ensemble methods. 
 
 
-[read entire report...]](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/report.pdf)
+[[read entire report...]](https://github.com/kowusu01/KOwusu.Tieku.HarvardX.Capstone.CYO/blob/main/reports/report.pdf)
 
